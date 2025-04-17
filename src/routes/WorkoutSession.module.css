@@ -1,0 +1,107 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.startScreen {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.workoutInfo {
+  background-color: var(--gray-2);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.exercisePreview {
+  background-color: var(--gray-2);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.exerciseList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.exerciseItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--gray-5);
+}
+
+.workoutScreen {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.progressHeader {
+  margin-bottom: 1rem;
+}
+
+.progressBar {
+  margin-top: 0.5rem;
+}
+
+.pauseScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background-color: var(--gray-2);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.exerciseScreen {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.timerDisplay {
+  background-color: var(--accent-2);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  border: 3px solid var(--accent-9);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.completedScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.completionStats {
+  background-color: var(--gray-2);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 1rem;
+}
