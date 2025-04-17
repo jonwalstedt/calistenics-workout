@@ -27,6 +27,7 @@ export default function WorkoutSession() {
   );
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [totalProgress, setTotalProgress] = useState(0);
+  const [isTimerPaused, setIsTimerPaused] = useState(false);
 
   // Load the workout data
   useEffect(() => {
@@ -62,6 +63,9 @@ export default function WorkoutSession() {
   // Function to handle transition to next exercise or round
   const moveToNextStep = useCallback(() => {
     if (!workout) return;
+    
+    // Ensure timer is not paused when transitioning
+    setIsTimerPaused(false);
     
     if (workoutState === WorkoutState.EXERCISE) {
       // After completing an exercise, always go to pause state
@@ -117,6 +121,7 @@ export default function WorkoutSession() {
     currentExerciseIndex,
     currentRound,
     addCompletedWorkout,
+    setIsTimerPaused,
   ]);
 
   // Timer effect for exercises and pauses
@@ -129,7 +134,7 @@ export default function WorkoutSession() {
       return;
     }
 
-    console.log("Timer effect running:", { workoutState, timeLeft });
+    console.log("Timer effect running:", { workoutState, timeLeft, isTimerPaused });
 
     // Handle case where timeLeft is not set or already at 0
     if (timeLeft === null || timeLeft <= 0) {
@@ -143,6 +148,11 @@ export default function WorkoutSession() {
       if (timeLeft === 0) {
         moveToNextStep();
       }
+      return;
+    }
+
+    // Don't start the timer if it's paused
+    if (isTimerPaused) {
       return;
     }
 
@@ -167,7 +177,7 @@ export default function WorkoutSession() {
       console.log("Clearing timer interval");
       clearInterval(timer);
     };
-  }, [workoutState, timeLeft, currentExercise, moveToNextStep]);
+  }, [workoutState, timeLeft, currentExercise, moveToNextStep, isTimerPaused]);
 
   // Update total progress when exercise or round changes
   useEffect(() => {
@@ -176,14 +186,20 @@ export default function WorkoutSession() {
   
   // For debugging timer issues - remove in production
   useEffect(() => {
-    console.log('Timer state:', { workoutState, timeLeft, currentExerciseIndex });
-  }, [workoutState, timeLeft, currentExerciseIndex]);
+    console.log('Timer state:', { workoutState, timeLeft, currentExerciseIndex, isTimerPaused });
+  }, [workoutState, timeLeft, currentExerciseIndex, isTimerPaused]);
+  
+  // Toggle pause function
+  const toggleTimerPause = () => {
+    setIsTimerPaused(prevState => !prevState);
+  };
 
   // Start the workout
   const handleStart = () => {
     if (!workout || !currentExercise) return;
     
     setWorkoutState(WorkoutState.EXERCISE);
+    setIsTimerPaused(false); // Make sure timer isn't paused when starting
     
     // For timed exercises, set the countdown
     if (currentExercise.duration) {
@@ -197,6 +213,8 @@ export default function WorkoutSession() {
   // Skip timed exercise
   const handleSkip = () => {
     if (workoutState === WorkoutState.EXERCISE) {
+      // Ensure we're not paused when skipping
+      setIsTimerPaused(false);
       // Directly move to the next step without waiting for timer
       moveToNextStep();
     }
@@ -205,6 +223,8 @@ export default function WorkoutSession() {
   // Complete repetition-based exercise
   const handleComplete = () => {
     if (workoutState === WorkoutState.EXERCISE && currentExercise?.repetitions) {
+      // Ensure we're not paused when completing an exercise
+      setIsTimerPaused(false);
       // Use the same transition logic for all exercises
       moveToNextStep();
     }
@@ -314,7 +334,7 @@ export default function WorkoutSession() {
             {workoutState === WorkoutState.PAUSE ? (
               <div className={styles.pauseScreen}>
                 <Heading as="h2" size="5">
-                  Rest Time
+                  Rest Time {isTimerPaused && <span className={styles.pausedBadge}>Paused</span>}
                 </Heading>
                 <Text as="p" size="7" weight="bold">
                   {timeLeft}s
@@ -327,6 +347,15 @@ export default function WorkoutSession() {
                       ? workout.exercises[0].name + " (Round " + (currentRound + 1) + ")"
                       : "Completed!"}
                 </Text>
+                
+                <Button 
+                  variant="soft"
+                  color={isTimerPaused ? "amber" : "green"}
+                  onClick={toggleTimerPause}
+                  className={styles.controlButton}
+                >
+                  {isTimerPaused ? "Resume" : "Pause"}
+                </Button>
               </div>
             ) : (
               <div className={styles.exerciseScreen}>
@@ -338,25 +367,42 @@ export default function WorkoutSession() {
                 
                 {/* Large timer display for timed exercises */}
                 {currentExercise.duration && (
-                  <Box className={styles.timerDisplay}>
+                  <Box className={`${styles.timerDisplay} ${isTimerPaused ? styles.paused : ''}`}>
                     <Text as="p" size="8" weight="bold">
                       {timeLeft !== null ? `${timeLeft}s` : `${currentExercise.duration}s`}
                     </Text>
+                    {isTimerPaused && <Text as="p" size="2" className={styles.pausedText}>PAUSED</Text>}
                   </Box>
                 )}
-
-                {currentExercise.duration ? (
-                  <Button onClick={handleSkip} className={styles.actionButton}>
-                    Skip
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleComplete}
-                    className={styles.actionButton}
-                  >
-                    Completed {currentExercise.repetitions} reps
-                  </Button>
-                )}
+                
+                {/* Control buttons */}
+                <Flex gap="3" className={styles.controlsContainer}>
+                  {/* Pause/Resume button for timed exercises */}
+                  {currentExercise.duration && (
+                    <Button 
+                      variant="soft"
+                      color={isTimerPaused ? "amber" : "green"}
+                      onClick={toggleTimerPause}
+                      className={styles.controlButton}
+                    >
+                      {isTimerPaused ? "Resume" : "Pause"}
+                    </Button>
+                  )}
+                  
+                  {/* Skip/Complete button */}
+                  {currentExercise.duration ? (
+                    <Button onClick={handleSkip} className={styles.actionButton}>
+                      Skip
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleComplete}
+                      className={styles.actionButton}
+                    >
+                      Completed {currentExercise.repetitions} reps
+                    </Button>
+                  )}
+                </Flex>
               </div>
             )}
           </div>

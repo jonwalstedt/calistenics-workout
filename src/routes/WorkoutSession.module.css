@@ -77,11 +77,48 @@
   width: 120px;
   height: 120px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 1rem 0;
   border: 3px solid var(--accent-9);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.timerDisplay.paused {
+  background-color: var(--amber-2);
+  border-color: var(--amber-9);
+  opacity: 0.8;
+}
+
+.pausedText {
+  color: var(--amber-11);
+  font-weight: bold;
+  margin-top: -5px;
+}
+
+.pausedBadge {
+  display: inline-block;
+  background-color: var(--amber-9);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.controlsContainer {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.controlButton {
+  min-width: 100px;
 }
 
 .actionButton {
