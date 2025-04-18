@@ -42,7 +42,6 @@ export default defineConfig({
   server: {
     host: true, // Expose to all network interfaces
     port: 5173, // Default Vite port
-    https: true, // Enable HTTPS for PWA features
   },
   build: {
     target: 'esnext',
