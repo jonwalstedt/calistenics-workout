@@ -5,22 +5,25 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run generate-icons && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate-icons": "node scripts/generate-icons.js"
   },
   "dependencies": {
     "@radix-ui/themes": "^3.2.1",
+    "@vitejs/plugin-react-swc": "^3.9.0",
     "radix-ui": "^1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^6.30.0",
-    "react-router-dom": "^6.30.0"
+    "react-router-dom": "^6.30.0",
+    "vite-plugin-pwa": "^1.0.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.6",
@@ -46,6 +49,7 @@
     "jsdom": "^26.1.0",
     "playwright": "^1.52.0",
     "prettier": "^3.5.3",
+    "sharp": "^0.34.1",
     "storybook": "^8.6.12",
     "storybook-addon-react-router-v6": "^2.0.15",
     "typescript": "~5.7.2",
