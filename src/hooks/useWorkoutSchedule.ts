@@ -40,7 +40,6 @@ function processWorkouts(): WorkoutDay[] {
 
 export function useWorkoutSchedule() {
   const [workouts] = useState<WorkoutDay[]>(processWorkouts());
-
   // Get the workout for today based on the day of the week (1-7)
   const getTodayWorkout = (): WorkoutDay | null => {
     if (workouts.length === 0) return null;

@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { LoginForm } from '../components/login';
-import { useUser } from '../context';
-import { useWorkoutSchedule } from '../hooks';
 import { Button, Heading, Text, Card, Flex, Box } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
-import { ExerciseCard } from '../components/workout';
+import { LoginForm } from '../../components/login';
+import { useUser } from '../../context';
+import { useWorkoutSchedule } from '../../hooks';
+import { ExerciseCard } from '../../components/workout';
 import styles from './Root.module.css';
 
-export default function Root() {
+export function Root() {
   const { login, user, logout, isLoggedIn, hasCompletedTodaysWorkout } =
     useUser();
   const { getTodayWorkout, isLoaded } = useWorkoutSchedule();
