@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useUser } from '../../context';
-import { Heading, Text, Button, Tabs } from '@radix-ui/themes';
+import { Heading, Text, Button, Tabs, Flex } from '@radix-ui/themes';
 import { Link, Navigate } from 'react-router-dom';
 import { Calendar } from '../../components/calendar';
+import { ThemeToggle } from '../../components/theme';
+import styles from './WorkoutHistory.module.css';
 
 export function WorkoutHistory() {
   const { user, isLoggedIn } = useUser();
@@ -41,39 +43,35 @@ export function WorkoutHistory() {
     : workoutsByDate;
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '1rem',
-        }}
-      >
+    <div className={styles.container}>
+      <div className={styles.header}>
         <Heading as="h1" size="6">
           Workout History
         </Heading>
-        <Button asChild variant="soft" size="2">
-          <Link to="/">Back to Dashboard</Link>
-        </Button>
+        <Flex gap="2" align="center">
+          <ThemeToggle />
+          <Button asChild variant="soft" size="2">
+            <Link to="/">Back to Dashboard</Link>
+          </Button>
+        </Flex>
       </div>
 
       {Object.keys(workoutsByDate).length === 0 ? (
         <Text as="p">You haven't completed any workouts yet.</Text>
       ) : (
-        <Tabs.Root defaultValue="list">
-          <Tabs.List>
-            <Tabs.Trigger value="list">List View</Tabs.Trigger>
-            <Tabs.Trigger value="calendar">Calendar View</Tabs.Trigger>
+        <Tabs.Root defaultValue="list" className={styles.tabsContainer}>
+          <Tabs.List className={styles.tabsList}>
+            <Tabs.Trigger value="list" className={styles.tabsTrigger}>List View</Tabs.Trigger>
+            <Tabs.Trigger value="calendar" className={styles.tabsTrigger}>Calendar View</Tabs.Trigger>
           </Tabs.List>
           
-          <Tabs.Content value="list">
+          <Tabs.Content value="list" className={styles.tabsContent}>
             <div>
               {Object.entries(workoutsToShow)
                 .sort(([dateA], [dateB]) => dateB.localeCompare(dateA)) // Sort in reverse chronological order
                 .map(([date, workouts]) => (
-                  <div key={date}>
-                    <Heading as="h2" size="3">
+                  <div key={date} className={styles.dateGroup}>
+                    <Heading as="h2" size="3" className={styles.dateHeading}>
                       {new Date(date).toLocaleDateString(undefined, {
                         weekday: 'long',
                         year: 'numeric',
@@ -81,9 +79,12 @@ export function WorkoutHistory() {
                         day: 'numeric',
                       })}
                     </Heading>
-                    <ul>
+                    <ul className={styles.workoutList}>
                       {workouts.map((workout) => (
-                        <li key={`${date}-${workout.workoutId}-${workout.date}`}>
+                        <li 
+                          key={`${date}-${workout.workoutId}-${workout.date}`}
+                          className={styles.workoutItem}
+                        >
                           <Text as="p">
                             Workout #{workout.workoutId + 1} completed at{' '}
                             {new Date(workout.date).toLocaleTimeString()}
@@ -96,7 +97,7 @@ export function WorkoutHistory() {
             </div>
           </Tabs.Content>
           
-          <Tabs.Content value="calendar">
+          <Tabs.Content value="calendar" className={styles.tabsContent}>
             <div>
               <Calendar 
                 workoutDates={workoutDates} 
@@ -104,8 +105,8 @@ export function WorkoutHistory() {
               />
               
               {selectedDate && workoutsByDate[selectedDate] && (
-                <div style={{ marginTop: '1rem' }}>
-                  <Heading as="h2" size="3">
+                <div className={styles.selectedDate}>
+                  <Heading as="h2" size="3" className={styles.dateHeading}>
                     {new Date(selectedDate).toLocaleDateString(undefined, {
                       weekday: 'long',
                       year: 'numeric',
@@ -113,9 +114,12 @@ export function WorkoutHistory() {
                       day: 'numeric',
                     })}
                   </Heading>
-                  <ul>
+                  <ul className={styles.workoutList}>
                     {workoutsByDate[selectedDate].map((workout) => (
-                      <li key={`${selectedDate}-${workout.workoutId}-${workout.date}`}>
+                      <li 
+                        key={`${selectedDate}-${workout.workoutId}-${workout.date}`}
+                        className={styles.workoutItem}
+                      >
                         <Text as="p">
                           Workout #{workout.workoutId + 1} completed at{' '}
                           {new Date(workout.date).toLocaleTimeString()}

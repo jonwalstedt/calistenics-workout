@@ -5,6 +5,7 @@ import { LoginForm } from '../../components/login';
 import { useUser } from '../../context';
 import { useWorkoutSchedule } from '../../hooks';
 import { ExerciseCard } from '../../components/workout';
+import { ThemeToggle } from '../../components/theme';
 import styles from './Root.module.css';
 
 export function Root() {
@@ -34,6 +35,9 @@ export function Root() {
     <div className={styles.container}>
       {!isLoggedIn ? (
         <div className={styles.login}>
+          <div className={styles.themeToggleContainer}>
+            <ThemeToggle />
+          </div>
           <Heading as="h1" size="7" className={styles.title}>
             Calisthenics Workout
           </Heading>
@@ -53,9 +57,12 @@ export function Root() {
             <Heading as="h1" size="6">
               Welcome back, {user?.name}!
             </Heading>
-            <Button variant="soft" onClick={handleLogout}>
-              Logout
-            </Button>
+            <Flex gap="2" align="center">
+              <ThemeToggle />
+              <Button variant="soft" onClick={handleLogout}>
+                Logout
+              </Button>
+            </Flex>
           </div>
 
           <div className={styles.stats}>

@@ -7,7 +7,7 @@
 .weekdayHeader {
   text-align: center;
   padding: 0.5rem 0;
-  color: var(--gray-11);
+  color: var(--muted-foreground);
 }
 
 .calendarDay {
@@ -15,20 +15,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .calendarDay:hover {
-  background-color: var(--gray-4);
+  background-color: var(--calendar-day-hover);
 }
 
 .hasWorkout {
-  background-color: var(--green-4);
-  color: var(--green-11);
-  font-weight: bold;
+  background-color: var(--calendar-has-workout);
+  color: var(--calendar-has-workout-text);
+  font-weight: var(--font-weight-bold);
+  box-shadow: var(--shadow-sm);
 }
 
 .hasWorkout:hover {
-  background-color: var(--green-5);
+  background-color: var(--secondary-400);
 } 

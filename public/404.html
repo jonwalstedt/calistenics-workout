@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <script>
+    // GitHub Pages SPA redirect
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafgraph/spa-github-pages
+    
+    (function() {
+      // This script handles redirecting from a GitHub Pages 404 page to the index.html
+      // for Single Page App routing
+      
+      // Get the current path without the base path
+      const pathSegments = window.location.pathname.split('/');
+      const repo = pathSegments[1];
+      
+      // Define the repository name (should match the one in vite.config.ts)
+      const repoName = 'calistenics-workout';
+      
+      // Only redirect if we're in the correct repository
+      // This check ensures we don't redirect if we're on a different page
+      if (repo !== repoName) {
+        return;
+      }
+      
+      const redirectPath = window.location.pathname.replace(`/${repoName}`, '');
+      
+      // Store the full path including the hash
+      const fullPath = redirectPath.length > 0 
+        ? redirectPath + window.location.search + window.location.hash
+        : window.location.search + window.location.hash;
+      
+      // Redirect to the index.html with the path stored in the URL
+      const redirectUrl = `/${repoName}/index.html?p=${encodeURIComponent(fullPath)}`;
+      
+      window.location.replace(redirectUrl);
+    })();
+  </script>
+</head>
+<body>
+  <h1>Redirecting...</h1>
+  <p>If you are not redirected automatically, <a href="index.html">click here</a>.</p>
+</body>
+</html> 

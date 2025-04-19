@@ -1,33 +1,146 @@
----
-description: 
-globs: 
-alwaysApply: true
----
 This file provides guidance to LLMs when working with code in this repository.
 
-## Build Commands
+# Development Guidelines
 
+## Project Overview
+This is a mobile-first Progressive Web App (PWA) for calisthenics workouts, built with React, TypeScript, and Vite.
+
+## Core Development Principles
+1. Mobile-first design approach
+2. Progressive enhancement for PWA features
+3. Offline-first functionality
+4. Test-driven development (TDD)
+5. Accessibility by default
+
+## Build and Development Commands
+
+### Development
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
+- `npm run build` - Build for production (includes PWA assets)
 - `npm run preview` - Preview production build
+- `npm run generate-icons` - Generate PWA icons (runs automatically with build)
 
-## Test Commands
-
+### Testing
 - `npm test` - Run all tests
 - `npm test -- -t "test name"` - Run single test
 - `npm run test:watch` - Run tests in watch mode
 - `npm run test:coverage` - Run tests with coverage report
 
-## Lint Commands
-
+### Quality Assurance
 - `npm run lint` - Run ESLint on all files
+- `npm run storybook` - Run Storybook for component development
+- `npm run build-storybook` - Build Storybook for deployment
 
-## Code Style Guidelines
+## Code Architecture
 
-- **TypeScript**: Use strict typing with explicit interfaces and return types
-- **Imports**: Group imports (React, third-party, local), use named imports
-- **Components**: Functional components with props destructuring
-- **Naming**: PascalCase for components/interfaces, camelCase for variables/functions
-- **Styling**: CSS Modules with kebab-case class names
-- **Error Handling**: Try/catch blocks, graceful fallbacks, console warnings
-- **Tests**: Vitest with JSDOM, detailed mocks, place in `__tests__` folders
+### TypeScript Guidelines
+- Use strict typing with explicit interfaces and return types
+- Prefer type inference where it enhances readability
+- Use union types over enums
+- Define reusable types in dedicated type files
+- Use `unknown` over `any`
+
+### Component Structure
+```typescript
+// Example component structure
+import { type FC } from 'react'
+import styles from './Component.module.css'
+
+interface ComponentProps {
+  // Props interface
+}
+
+export const Component: FC<ComponentProps> = ({ prop1, prop2 }) => {
+  // Implementation
+}
+```
+
+### File Organization
+```
+src/
+├── components/         # Reusable components
+├── features/          # Feature-specific components
+├── hooks/            # Custom React hooks
+├── services/         # API and business logic
+├── types/            # TypeScript types/interfaces
+├── utils/            # Helper functions
+└── __tests__/        # Test files
+```
+
+### Import Order
+1. React and React-related imports
+2. Third-party libraries
+3. Local components and hooks
+4. Types and interfaces
+5. Assets and styles
+
+### Styling Guidelines
+- Use CSS Modules with kebab-case class names
+- Follow mobile-first approach
+- Use CSS custom properties for theming
+- Implement responsive design using relative units
+- Support dark mode with `prefers-color-scheme`
+
+### PWA Requirements
+- All API calls must handle offline scenarios
+- Cache critical resources in service worker
+- Implement appropriate loading states
+- Use appropriate meta tags for iOS/Android
+
+### Testing Standards
+- Write tests before implementation (TDD)
+- Test components in isolation
+- Mock external dependencies
+- Test offline functionality
+- Include accessibility tests
+- Aim for >80% coverage
+
+### Error Handling
+- Use try/catch blocks for async operations
+- Implement error boundaries for component failures
+- Provide user-friendly error messages
+- Log errors appropriately
+- Handle offline scenarios gracefully
+
+### Performance Guidelines
+- Lazy load non-critical components
+- Optimize images and assets
+- Implement proper code splitting
+- Monitor bundle size
+- Use performance monitoring tools
+
+### Git Workflow
+1. Create feature branch from main
+2. Write failing tests
+3. Implement feature
+4. Ensure all tests pass
+5. Run linter and fix issues
+6. Make small, focused commits
+7. Write descriptive commit messages
+8. Submit PR for review
+
+### Commit Message Format
+```
+type(scope): description
+
+- type: feat, fix, docs, style, refactor, test, chore
+- scope: component name, feature area
+- description: present tense, descriptive
+```
+
+### Accessibility (a11y)
+- Use semantic HTML
+- Implement ARIA attributes where needed
+- Ensure keyboard navigation
+- Test with screen readers
+- Follow WCAG 2.1 guidelines
+
+### Security
+- Sanitize user inputs
+- Implement Content Security Policy
+- Use HTTPS only
+- Secure sensitive data
+- Regular dependency updates
+
+Remember: The goal is to create a high-quality, maintainable, and user-friendly PWA that works reliably both online and offline.
+

@@ -1,15 +1,15 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
+import './theme.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root } from './routes/root';
 import { ErrorPage } from './error-page';
 import { WorkoutHistory } from './routes/workout-history';
 import { WorkoutSession } from './routes/workout-session';
 import '@radix-ui/themes/styles.css';
-import './index.css';
 import { Theme } from '@radix-ui/themes';
-import { UserProvider } from './context';
+import { UserProvider, ThemeProvider } from './context';
 // @ts-expect-error - Virtual module from vite-plugin-pwa
 import { registerSW } from 'virtual:pwa-register';
 import { OfflineNotification } from './components/offline';
@@ -27,6 +27,11 @@ const updateSW = registerSW({
   },
 });
 
+// Get the base URL from the import.meta.env
+// In development, this will be '/'
+// In production with GitHub Pages, this will match the repository name
+const baseUrl = import.meta.env.BASE_URL;
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -43,20 +48,25 @@ const router = createBrowserRouter([
     element: <WorkoutSession />,
     errorElement: <ErrorPage />,
   },
-]);
+], {
+  // Use the base URL from environment for GitHub Pages compatibility
+  basename: baseUrl,
+});
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
-      <Theme>
-        <UserProvider>
-          <OfflineNotification />
-          <div className="content">
-            <RouterProvider router={router} />
-          </div>
-        </UserProvider>
-      </Theme>
+      <ThemeProvider>
+        <Theme appearance="inherit" scaling="100%" radius="medium" accentColor="indigo">
+          <UserProvider>
+            <OfflineNotification />
+            <div className="content">
+              <RouterProvider router={router} />
+            </div>
+          </UserProvider>
+        </Theme>
+      </ThemeProvider>
     </StrictMode>
   );
 } else {

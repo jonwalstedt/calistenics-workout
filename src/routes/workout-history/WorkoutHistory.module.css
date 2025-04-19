@@ -1,0 +1,118 @@
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabsContainer {
+  width: 100%;
+}
+
+.tabsList {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabsTrigger {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.tabsTrigger:hover {
+  color: var(--primary-600);
+}
+
+.tabsTrigger[data-state="active"] {
+  color: var(--primary-700);
+  font-weight: var(--font-weight-medium);
+}
+
+.tabsTrigger[data-state="active"]::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--primary-600);
+}
+
+.tabsContent {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dateGroup {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dateGroup:last-child {
+  border-bottom: none;
+}
+
+.dateHeading {
+  margin-bottom: 1rem;
+  color: var(--primary-700);
+}
+
+.workoutList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.workoutItem {
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--workout-card-bg);
+  border: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.workoutItem:hover {
+  background-color: var(--workout-item-hover);
+}
+
+.selectedDate {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--muted);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .header > div {
+    align-self: flex-end;
+  }
+} 

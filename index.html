@@ -17,6 +17,31 @@
     <link rel="manifest" href="/manifest.json" />
     
     <title>Calisthenics Workout</title>
+    
+    <!-- GitHub Pages route handling script -->
+    <script>
+      // Handle redirect from 404.html
+      (function() {
+        // Parse the URL
+        const query = window.location.search;
+        const urlParams = new URLSearchParams(query);
+        const redirectPath = urlParams.get('p');
+        
+        // If we have a path from the 404 redirect, apply it
+        if (redirectPath) {
+          // Remove the 'p' query parameter and use its value for navigation
+          const cleanPath = redirectPath.replace(/^\?/, ''); // Remove leading ? if present
+          
+          // Create clean URL with proper history
+          const cleanUrl = window.location.origin + 
+                          window.location.pathname.replace(/\/index\.html$/, '') + 
+                          cleanPath;
+                          
+          // Replace the current state with the cleaned URL
+          window.history.replaceState(null, null, cleanUrl);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

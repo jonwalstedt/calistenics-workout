@@ -3,16 +3,16 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: var(--amber-4);
+  background-color: var(--offline-bg);
   padding: 8px;
   text-align: center;
   z-index: 1000;
-  border-bottom: 1px solid var(--amber-6);
+  border-bottom: 1px solid var(--offline-border);
 }
 
 .offlineText {
-  color: var(--amber-11);
-  font-weight: 500;
+  color: var(--offline-text);
+  font-weight: var(--font-weight-medium);
   display: flex;
   align-items: center;
   justify-content: center;
