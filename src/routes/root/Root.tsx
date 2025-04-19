@@ -68,7 +68,7 @@ export function Root() {
             </Text>
             <Text as="p">
               Workouts completed: {user?.completedWorkouts.length || 0}{' '}
-              {user?.completedWorkouts.length > 0 && (
+              {(user?.completedWorkouts ?? []).length > 0 && (
                 <Link to="/history" className={styles.historyLink}>
                   View history
                 </Link>
