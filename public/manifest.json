@@ -2,7 +2,7 @@
   "name": "Calisthenics Workout",
   "short_name": "Calisthenics",
   "description": "Your personal calisthenics workout companion",
-  "start_url": "/",
+  "start_url": "/calistenics-workout/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
