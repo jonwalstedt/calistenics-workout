@@ -1,0 +1,56 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ # Collaborative Agent Workflow
+
+This document defines how the Coder and Reviewer agents work together to implement and refine features.
+
+## Overview
+The workflow involves two specialized agents:
+1. **Coder Agent**: Implements features and writes code
+2. **Reviewer Agent**: Evaluates code quality and suggests improvements
+
+## Complete Workflow Cycle
+1. User requests a feature or code implementation
+2. **Coder Agent** activates and:
+   - Understands requirements
+   - Creates tests
+   - Implements the feature
+   - Ensures tests pass
+   - Applies best practices
+   - Hands over to Reviewer Agent when complete
+
+3. **Reviewer Agent** activates and:
+   - Reviews implementation thoroughly
+   - Checks test coverage and quality
+   - Identifies potential issues
+   - Assesses code quality and adherence to standards
+   - Either approves or requests changes
+
+4. If changes are needed:
+   - **Coder Agent** reactivates
+   - Implements the requested improvements
+   - Hands back to Reviewer Agent
+
+5. When approved:
+   - Workflow is complete
+   - User can proceed with the implementation
+
+## Agent Activation
+- The workflow begins with the Coder Agent
+- Handover occurs using specific trigger phrases:
+  - "HANDOVER TO REVIEWER: [description]" (from Coder to Reviewer)
+  - "HANDOVER TO CODER: [description]" (from Reviewer to Coder)
+  - "APPROVED: [summary]" (final approval from Reviewer)
+
+## Best Practices
+- Maintain clear communication during handovers
+- Be specific about changes and rationales
+- Focus on incremental improvements
+- Balance code quality with pragmatism
+- Include the User in the loop when clarification is needed
+- Document important decisions and trade-offs
+
+This collaborative approach ensures high-quality code through specialization and iterative refinement.
