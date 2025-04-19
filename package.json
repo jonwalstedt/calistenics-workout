@@ -13,7 +13,8 @@
     "test:coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "generate-icons": "node scripts/generate-icons.js"
+    "generate-icons": "node scripts/generate-icons.js",
+    "postinstall": "echo 'Dependency installation complete with legacy-peer-deps enabled'"
   },
   "dependencies": {
     "@radix-ui/themes": "^3.2.1",
@@ -61,5 +62,11 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "config": {
+    "legacy-peer-deps": true
   }
 }
