@@ -11,6 +11,7 @@ import burpees from '../assets/burpees.png';
 import bicycleCrunches from '../assets/bicycle-crunches.png';
 import hollowHold from '../assets/hollow-hold.png';
 import jumpingLunges from '../assets/jumping-lunges.png';
+import jumpingJacks from '../assets/jumping-jacks.png';
 import wallSit from '../assets/wall-sit.png';
 import squats from '../assets/squats.png';
 import calfRaises from '../assets/calf-raises.png';
@@ -45,6 +46,7 @@ const imageMap: Record<string, string> = {
   '../assets/bicycle-crunches.png': bicycleCrunches,
   '../assets/hollow-hold.png': hollowHold,
   '../assets/jumping-lunges.png': jumpingLunges,
+  '../assets/jumping-jacks.png': jumpingJacks,
   '../assets/wall-sit.png': wallSit,
   '../assets/squats.png': squats,
   '../assets/calf-raises.png': calfRaises,
