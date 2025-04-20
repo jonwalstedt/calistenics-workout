@@ -221,6 +221,15 @@
   opacity: 1;
 }
 
+.warmupIndicator {
+  padding: 8px 16px;
+  margin-bottom: 1rem;
+  background-color: var(--blue-3);
+  border: 1px solid var(--blue-6);
+  border-radius: 8px;
+  text-align: center;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 480px) {
   .pauseScreen,

@@ -18,6 +18,7 @@ export interface WorkoutDay {
   duration: number;
   repeats: number;
   pause: number;
+  warmup: Exercise[]; // Add warmup exercises array
   exercises: Exercise[];
 }
 
@@ -31,8 +32,15 @@ function processWorkouts(): WorkoutDay[] {
       resolvedImageSrc: getImageSrc(exercise.image),
     }));
 
+    // Process warmup exercises
+    const processedWarmup = workout.warmup.map((exercise) => ({
+      ...exercise,
+      resolvedImageSrc: getImageSrc(exercise.image),
+    }));
+
     return {
       ...workout,
+      warmup: processedWarmup,
       exercises: processedExercises,
     };
   });

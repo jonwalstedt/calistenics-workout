@@ -11,6 +11,7 @@ import styles from './WorkoutSession.module.css';
 
 enum WorkoutState {
   NOT_STARTED = 'not_started',
+  WARMUP = 'warmup',        // New state for warmup exercises
   EXERCISE = 'exercise',
   PAUSE = 'pause',
   READY = 'ready',
@@ -24,6 +25,7 @@ export function WorkoutSession() {
 
   const [workout, setWorkout] = useState<WorkoutDay | null>(null);
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
+  const [currentWarmupIndex, setCurrentWarmupIndex] = useState(0); // Track warmup exercise index
   const [currentRound, setCurrentRound] = useState(1);
   const [workoutState, setWorkoutState] = useState<WorkoutState>(
     WorkoutState.NOT_STARTED
@@ -52,10 +54,24 @@ export function WorkoutSession() {
     }
   }, [isLoaded, workoutId, getWorkoutByDay]);
 
-  const currentExercise =
-    workout && currentExerciseIndex < workout.exercises.length
+  // Get the current exercise based on workout state (warmup or regular exercise)
+  const currentExercise = useCallback((): Exercise | null => {
+    if (!workout) return null;
+
+    // If in warmup state, return the current warmup exercise
+    if (workoutState === WorkoutState.WARMUP) {
+      return currentWarmupIndex < workout.warmup.length 
+        ? workout.warmup[currentWarmupIndex] 
+        : null;
+    }
+
+    // Otherwise return the current regular exercise
+    return currentExerciseIndex < workout.exercises.length
       ? workout.exercises[currentExerciseIndex]
       : null;
+  }, [workout, workoutState, currentWarmupIndex, currentExerciseIndex]);
+
+  const activeExercise = currentExercise();
 
   // Get next exercise (for display in READY state)
   const getNextExercise = useCallback(() => {
@@ -170,12 +186,57 @@ export function WorkoutSession() {
     }
   }, [workout, workoutState]);
 
+  // Start main exercises after warmup is complete
+  const startMainExercises = useCallback(() => {
+    if (!workout) return;
+
+    setWorkoutState(WorkoutState.EXERCISE);
+    setCurrentExerciseIndex(0);
+    setCurrentRound(1);
+    setIsTimerPaused(false);
+
+    // Set timer for first exercise
+    const firstExercise = workout.exercises[0];
+    if (firstExercise?.duration) {
+      setTimeLeft(firstExercise.duration);
+    } else {
+      setTimeLeft(null);
+    }
+  }, [workout]);
+
+  // Move to the next warmup exercise or start main exercises
+  const moveToNextWarmupExercise = useCallback(() => {
+    if (!workout) return;
+
+    // Move to next warmup exercise
+    const nextWarmupIndex = currentWarmupIndex + 1;
+
+    // Check if we've completed all warmup exercises
+    if (nextWarmupIndex >= workout.warmup.length) {
+      // Warmup complete, start main exercises
+      startMainExercises();
+      return;
+    }
+
+    // Continue with next warmup exercise
+    setCurrentWarmupIndex(nextWarmupIndex);
+    
+    // Set timer for next warmup exercise
+    const nextWarmupExercise = workout.warmup[nextWarmupIndex];
+    if (nextWarmupExercise?.duration) {
+      setTimeLeft(nextWarmupExercise.duration);
+    } else {
+      setTimeLeft(null);
+    }
+  }, [workout, currentWarmupIndex, startMainExercises]);
+
   // Timer effect for exercises and pauses
   useEffect(() => {
     // Don't run timer if not in an active state
     if (
       workoutState !== WorkoutState.EXERCISE &&
-      workoutState !== WorkoutState.PAUSE
+      workoutState !== WorkoutState.PAUSE &&
+      workoutState !== WorkoutState.WARMUP
     ) {
       return;
     }
@@ -190,17 +251,20 @@ export function WorkoutSession() {
     if (timeLeft === null || timeLeft <= 0) {
       // Special handling for timed exercises that haven't been initialized yet
       if (
-        workoutState === WorkoutState.EXERCISE &&
-        currentExercise?.duration &&
+        (workoutState === WorkoutState.EXERCISE || workoutState === WorkoutState.WARMUP) &&
+        activeExercise?.duration &&
         timeLeft === null
       ) {
-        setTimeLeft(currentExercise.duration);
+        setTimeLeft(activeExercise.duration);
         return;
       }
 
       // Handle timer completion
       if (timeLeft === 0) {
-        if (workoutState === WorkoutState.EXERCISE) {
+        if (workoutState === WorkoutState.WARMUP) {
+          // Move to next warmup exercise without pause
+          moveToNextWarmupExercise();
+        } else if (workoutState === WorkoutState.EXERCISE) {
           moveToNextStep();
         } else if (workoutState === WorkoutState.PAUSE) {
           prepareNextExercise();
@@ -216,7 +280,6 @@ export function WorkoutSession() {
 
     // Play "about to start" sound when pause is about to end (3 seconds left)
     if (workoutState === WorkoutState.PAUSE && timeLeft === 3) {
-      console.log('Attempting to play about to start sound');
       audioService.playAboutToStartSound();
     }
 
@@ -229,8 +292,7 @@ export function WorkoutSession() {
           clearInterval(timer);
 
           // Play completion sound when exercise timer reaches 0
-          if (workoutState === WorkoutState.EXERCISE) {
-            console.log('Attempting to play exercise complete sound');
+          if (workoutState === WorkoutState.EXERCISE || workoutState === WorkoutState.WARMUP) {
             audioService.playExerciseCompleteSound();
           }
 
@@ -250,10 +312,11 @@ export function WorkoutSession() {
   }, [
     workoutState, 
     timeLeft, 
-    currentExercise, 
+    activeExercise, 
     moveToNextStep, 
     isTimerPaused, 
-    prepareNextExercise
+    prepareNextExercise,
+    moveToNextWarmupExercise
   ]);
 
   // Update total progress when exercise or round changes
@@ -290,23 +353,35 @@ export function WorkoutSession() {
 
   // Start the workout
   const handleStart = () => {
-    if (!workout || !currentExercise) return;
+    if (!workout) return;
 
-    setWorkoutState(WorkoutState.EXERCISE);
-    setIsTimerPaused(false); // Make sure timer isn't paused when starting
+    // Start with warmup exercises if available
+    if (workout.warmup && workout.warmup.length > 0) {
+      setWorkoutState(WorkoutState.WARMUP);
+      setCurrentWarmupIndex(0);
+      setIsTimerPaused(false);
 
-    // For timed exercises, set the countdown
-    if (currentExercise.duration) {
-      setTimeLeft(currentExercise.duration);
+      // Set timer for first warmup exercise
+      const firstWarmupExercise = workout.warmup[0];
+      if (firstWarmupExercise.duration) {
+        setTimeLeft(firstWarmupExercise.duration);
+      } else {
+        setTimeLeft(null);
+      }
     } else {
-      // For rep-based exercises, just show the reps with no timer
-      setTimeLeft(null);
+      // No warmup exercises, start with regular exercises
+      startMainExercises();
     }
   };
 
   // Skip timed exercise
   const handleSkip = () => {
-    if (workoutState === WorkoutState.EXERCISE) {
+    if (workoutState === WorkoutState.WARMUP) {
+      // Ensure we're not paused when skipping
+      setIsTimerPaused(false);
+      // Directly move to the next warmup exercise
+      moveToNextWarmupExercise();
+    } else if (workoutState === WorkoutState.EXERCISE) {
       // Ensure we're not paused when skipping
       setIsTimerPaused(false);
       // Directly move to the next step without waiting for timer
@@ -316,9 +391,14 @@ export function WorkoutSession() {
 
   // Complete repetition-based exercise
   const handleComplete = () => {
-    if (
+    if (workoutState === WorkoutState.WARMUP && activeExercise?.repetitions) {
+      // Ensure we're not paused when completing a warmup exercise
+      setIsTimerPaused(false);
+      // Move to next warmup exercise
+      moveToNextWarmupExercise();
+    } else if (
       workoutState === WorkoutState.EXERCISE &&
-      currentExercise?.repetitions
+      activeExercise?.repetitions
     ) {
       // Ensure we're not paused when completing an exercise
       setIsTimerPaused(false);
@@ -383,6 +463,29 @@ export function WorkoutSession() {
             </Flex>
           </Box>
 
+          {/* Show Warmup exercises */}
+          {workout.warmup && workout.warmup.length > 0 && (
+            <Box className={styles.exercisePreview}>
+              <Heading as="h2" size="3">
+                Warmup ({workout.warmup.length})
+              </Heading>
+              <div className={styles.exerciseList}>
+                {workout.warmup.map((exercise, i) => (
+                  <div key={`warmup-${exercise.name}-${i}`} className={styles.exerciseItem}>
+                    <Text as="p" size="2" weight="bold">
+                      {exercise.name}
+                    </Text>
+                    <Text as="p" size="1">
+                      {exercise.duration
+                        ? `${exercise.duration}s`
+                        : `${exercise.repetitions} reps`}
+                    </Text>
+                  </div>
+                ))}
+              </div>
+            </Box>
+          )}
+
           <Box className={styles.exercisePreview}>
             <Heading as="h2" size="3">
               Exercises
@@ -424,17 +527,26 @@ export function WorkoutSession() {
 
       {(workoutState === WorkoutState.EXERCISE ||
         workoutState === WorkoutState.PAUSE ||
-        workoutState === WorkoutState.READY) &&
-        currentExercise && (
+        workoutState === WorkoutState.READY ||
+        workoutState === WorkoutState.WARMUP) &&
+        activeExercise && (
           <div className={styles.workoutScreen}>
             <Box className={styles.progressHeader}>
               <Flex justify="between" align="center">
-                <Text as="p" size="2">
-                  Round {currentRound}/{workout.repeats}
-                </Text>
-                <Text as="p" size="2">
-                  Exercise {currentExerciseIndex + 1}/{workout.exercises.length}
-                </Text>
+                {workoutState === WorkoutState.WARMUP ? (
+                  <Text as="p" size="2" color="blue">
+                    Warmup {currentWarmupIndex + 1}/{workout.warmup.length}
+                  </Text>
+                ) : (
+                  <>
+                    <Text as="p" size="2">
+                      Round {currentRound}/{workout.repeats}
+                    </Text>
+                    <Text as="p" size="2">
+                      Exercise {currentExerciseIndex + 1}/{workout.exercises.length}
+                    </Text>
+                  </>
+                )}
                 <Button 
                   variant="ghost" 
                   color="gray" 
@@ -444,7 +556,14 @@ export function WorkoutSession() {
                   {isMuted ? 'Unmute' : 'Mute'}
                 </Button>
               </Flex>
-              <Progress value={totalProgress} className={styles.progressBar} />
+              <Progress 
+                value={
+                  workoutState === WorkoutState.WARMUP 
+                    ? (currentWarmupIndex / workout.warmup.length) * 100 
+                    : totalProgress
+                } 
+                className={styles.progressBar} 
+              />
             </Box>
 
             {workoutState === WorkoutState.PAUSE ? (
@@ -522,27 +641,35 @@ export function WorkoutSession() {
                   Start Exercise
                 </Button>
               </div>
-            ) : (
+            ) : workoutState === WorkoutState.WARMUP ? (
               <div className={styles.exerciseScreen}>
+                {/* Special warmup header */}
+                <div className={styles.warmupIndicator}>
+                  <Text as="p" size="2" color="blue">
+                    Warmup Phase
+                  </Text>
+                </div>
+                
                 <ExerciseCard
-                  exercise={currentExercise}
+                  exercise={activeExercise}
                   isActive
                 />
 
                 {/* Donut timer display for timed exercises */}
-                {currentExercise.duration && (
+                {activeExercise.duration && (
                   <DonutTimer
-                    duration={currentExercise.duration}
+                    duration={activeExercise.duration}
                     timeLeft={timeLeft}
                     isPaused={isTimerPaused}
                     size="large"
+                    color="default"
                   />
                 )}
 
                 {/* Control buttons */}
                 <Flex gap="3" className={styles.controlsContainer}>
                   {/* Pause/Resume button for timed exercises */}
-                  {currentExercise.duration && (
+                  {activeExercise.duration && (
                     <Button
                       variant="soft"
                       color={isTimerPaused ? 'amber' : 'green'}
@@ -554,7 +681,7 @@ export function WorkoutSession() {
                   )}
 
                   {/* Skip/Complete button */}
-                  {currentExercise.duration ? (
+                  {activeExercise.duration ? (
                     <Button
                       onClick={handleSkip}
                       className={styles.actionButton}
@@ -566,7 +693,67 @@ export function WorkoutSession() {
                       onClick={handleComplete}
                       className={styles.actionButton}
                     >
-                      Completed {currentExercise.repetitions} reps
+                      Completed {activeExercise.repetitions} reps
+                    </Button>
+                  )}
+                </Flex>
+                
+                <Button 
+                  asChild 
+                  variant="ghost" 
+                  color="gray" 
+                  size="2" 
+                  className={styles.abortButton}
+                >
+                  <Link to="/">Abort Workout</Link>
+                </Button>
+              </div>
+            ) : (
+              <div className={styles.exerciseScreen}>
+                <ExerciseCard
+                  exercise={activeExercise}
+                  isActive
+                />
+
+                {/* Donut timer display for timed exercises */}
+                {activeExercise.duration && (
+                  <DonutTimer
+                    duration={activeExercise.duration}
+                    timeLeft={timeLeft}
+                    isPaused={isTimerPaused}
+                    size="large"
+                    color="default"
+                  />
+                )}
+
+                {/* Control buttons */}
+                <Flex gap="3" className={styles.controlsContainer}>
+                  {/* Pause/Resume button for timed exercises */}
+                  {activeExercise.duration && (
+                    <Button
+                      variant="soft"
+                      color={isTimerPaused ? 'amber' : 'green'}
+                      onClick={toggleTimerPause}
+                      className={styles.controlButton}
+                    >
+                      {isTimerPaused ? 'Resume' : 'Pause'}
+                    </Button>
+                  )}
+
+                  {/* Skip/Complete button */}
+                  {activeExercise.duration ? (
+                    <Button
+                      onClick={handleSkip}
+                      className={styles.actionButton}
+                    >
+                      Skip
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleComplete}
+                      className={styles.actionButton}
+                    >
+                      Completed {activeExercise.repetitions} reps
                     </Button>
                   )}
                 </Flex>
