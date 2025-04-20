@@ -8,6 +8,7 @@ import { ErrorPage } from './error-page';
 import { WorkoutHistory } from './routes/workout-history';
 import { WorkoutSession } from './routes/workout-session';
 import { Settings } from './routes/settings';
+import { WorkoutSchedule } from './routes/schedule';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import { UserProvider, ThemeProvider } from './context';
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: '/settings',
         element: <Settings />,
+      },
+      {
+        path: '/schedule',
+        element: <WorkoutSchedule />,
       },
     ]
   },
