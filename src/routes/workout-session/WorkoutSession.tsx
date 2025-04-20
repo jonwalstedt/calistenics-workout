@@ -413,14 +413,6 @@ export function WorkoutSession() {
                   )}
                 </Heading>
                 
-                <DonutTimer
-                  duration={workout.pause}
-                  timeLeft={timeLeft}
-                  isPaused={isTimerPaused}
-                  color="amber"
-                  size="large"
-                />
-                
                 {getUpcomingExercise() && (
                   <div className={styles.nextExercisePreview}>
                     <Heading as="h3" size="3" className={styles.previewHeading}>
@@ -431,6 +423,14 @@ export function WorkoutSession() {
                     />
                   </div>
                 )}
+                
+                <DonutTimer
+                  duration={workout.pause}
+                  timeLeft={timeLeft}
+                  isPaused={isTimerPaused}
+                  color="amber"
+                  size="large"
+                />
                 
                 <Flex gap="3" className={styles.pauseControls}>
                   <Button
@@ -449,6 +449,16 @@ export function WorkoutSession() {
                     Skip Rest
                   </Button>
                 </Flex>
+                
+                <Button 
+                  asChild 
+                  variant="ghost" 
+                  color="gray" 
+                  size="2" 
+                  className={styles.abortButton}
+                >
+                  <Link to="/">Abort Workout</Link>
+                </Button>
               </div>
             ) : workoutState === WorkoutState.READY && nextExercise ? (
               <div className={styles.readyScreen}>
@@ -517,6 +527,16 @@ export function WorkoutSession() {
                     </Button>
                   )}
                 </Flex>
+                
+                <Button 
+                  asChild 
+                  variant="ghost" 
+                  color="gray" 
+                  size="2" 
+                  className={styles.abortButton}
+                >
+                  <Link to="/">Abort Workout</Link>
+                </Button>
               </div>
             )}
           </div>
