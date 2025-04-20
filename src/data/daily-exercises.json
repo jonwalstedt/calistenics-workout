@@ -81,14 +81,16 @@
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         }
       ],
       "exercises": [
@@ -149,14 +151,16 @@
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         }
       ],
       "exercises": [
@@ -210,14 +214,16 @@
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         }
       ],
       "exercises": [
@@ -278,14 +284,16 @@
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         }
       ],
       "exercises": [
@@ -311,7 +319,15 @@
           "repetitions": null
         },
         {
-          "name": "Side Plank (each side)",
+          "name": "Side Plank (left side)",
+          "description": "An isometric hold to strengthen the obliques.",
+          "duration": 20,
+          "image": "../assets/side-plank.png",
+          "pauseDuration": 0,
+          "repetitions": null
+        },
+        {
+          "name": "Side Plank (right side)",
           "description": "An isometric hold to strengthen the obliques.",
           "duration": 20,
           "image": "../assets/side-plank.png",
@@ -339,14 +355,16 @@
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         }
       ],
       "exercises": [
@@ -400,14 +418,16 @@
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 0
         }
       ],
       "exercises": [
@@ -433,7 +453,15 @@
           "repetitions": 15
         },
         {
-          "name": "Side Plan Reach (each side)",
+          "name": "Side Plan Reach (left side)",
+          "description": "A balance exercise to improve stability.",
+          "duration": 20,
+          "image": "../assets/side-plank-reach.png",
+          "pauseDuration": 0,
+          "repetitions": null
+        },
+        {
+          "name": "Side Plan Reach (right side)",
           "description": "A balance exercise to improve stability.",
           "duration": 20,
           "image": "../assets/side-plank-reach.png",
