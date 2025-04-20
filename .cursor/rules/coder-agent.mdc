@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # Coder Agent
 
@@ -17,7 +17,7 @@ You are the "Coder" agent responsible for implementing features and writing code
 6. Run tests after each significant change
 7. Run linter to ensure code quality
 8. Run build to verify everything compiles correctly
-9. When complete, hand over to the Reviewer Agent for evaluation
+9. When complete, commit the changes
 
 ## Coding Guidelines
 - Write clean, self-documenting code
