@@ -5,6 +5,7 @@ import { useWorkoutSchedule } from '../../hooks/useWorkoutSchedule';
 import type { WorkoutDay, Exercise } from '../../hooks/useWorkoutSchedule';
 import { useUser } from '../../context';
 import { ExerciseCard } from '../../components/workout';
+import { DonutTimer } from '../../components/timer';
 import styles from './WorkoutSession.module.css';
 
 enum WorkoutState {
@@ -411,9 +412,14 @@ export function WorkoutSession() {
                     <span className={styles.pausedBadge}>Paused</span>
                   )}
                 </Heading>
-                <Text as="p" size="7" weight="bold">
-                  {timeLeft}s
-                </Text>
+                
+                <DonutTimer
+                  duration={workout.pause}
+                  timeLeft={timeLeft}
+                  isPaused={isTimerPaused}
+                  color="amber"
+                  size="large"
+                />
                 
                 {getUpcomingExercise() && (
                   <div className={styles.nextExercisePreview}>
@@ -470,22 +476,14 @@ export function WorkoutSession() {
                   isActive
                 />
 
-                {/* Large timer display for timed exercises */}
+                {/* Donut timer display for timed exercises */}
                 {currentExercise.duration && (
-                  <Box
-                    className={`${styles.timerDisplay} ${isTimerPaused ? styles.paused : ''}`}
-                  >
-                    <Text as="p" size="8" weight="bold">
-                      {timeLeft !== null
-                        ? `${timeLeft}s`
-                        : `${currentExercise.duration}s`}
-                    </Text>
-                    {isTimerPaused && (
-                      <Text as="p" size="2" className={styles.pausedText}>
-                        PAUSED
-                      </Text>
-                    )}
-                  </Box>
+                  <DonutTimer
+                    duration={currentExercise.duration}
+                    timeLeft={timeLeft}
+                    isPaused={isTimerPaused}
+                    size="large"
+                  />
                 )}
 
                 {/* Control buttons */}
