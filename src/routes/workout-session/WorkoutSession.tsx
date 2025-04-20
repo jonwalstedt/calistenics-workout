@@ -6,6 +6,7 @@ import type { WorkoutDay, Exercise } from '../../hooks/useWorkoutSchedule';
 import { useUser } from '../../context';
 import { ExerciseCard } from '../../components/workout';
 import { DonutTimer } from '../../components/timer';
+import audioService from '../../components/audio/AudioService';
 import styles from './WorkoutSession.module.css';
 
 enum WorkoutState {
@@ -30,6 +31,7 @@ export function WorkoutSession() {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [totalProgress, setTotalProgress] = useState(0);
   const [isTimerPaused, setIsTimerPaused] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const [nextExerciseInfo, setNextExerciseInfo] = useState<{
     index: number;
     round: number;
@@ -212,6 +214,12 @@ export function WorkoutSession() {
       return;
     }
 
+    // Play "about to start" sound when pause is about to end (3 seconds left)
+    if (workoutState === WorkoutState.PAUSE && timeLeft === 3) {
+      console.log('Attempting to play about to start sound');
+      audioService.playAboutToStartSound();
+    }
+
     // Start the countdown timer (used for both exercise and pause)
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -219,6 +227,12 @@ export function WorkoutSession() {
 
         if (prevTime === null || prevTime <= 1) {
           clearInterval(timer);
+
+          // Play completion sound when exercise timer reaches 0
+          if (workoutState === WorkoutState.EXERCISE) {
+            console.log('Attempting to play exercise complete sound');
+            audioService.playExerciseCompleteSound();
+          }
 
           // We'll handle transition in the next render
           return 0;
@@ -262,6 +276,17 @@ export function WorkoutSession() {
   const toggleTimerPause = () => {
     setIsTimerPaused((prevState) => !prevState);
   };
+
+  // Toggle mute state
+  const toggleMute = () => {
+    const newMuteState = audioService.toggleMute();
+    setIsMuted(newMuteState);
+  };
+
+  // Initialize mute state from AudioService
+  useEffect(() => {
+    setIsMuted(audioService.getMuteState());
+  }, []);
 
   // Start the workout
   const handleStart = () => {
@@ -384,6 +409,16 @@ export function WorkoutSession() {
             </Button>
             <Button onClick={handleStart}>Start Workout</Button>
           </Flex>
+          
+          <Button 
+            variant="ghost" 
+            color="gray" 
+            size="2" 
+            onClick={toggleMute} 
+            className={styles.muteButton}
+          >
+            {isMuted ? 'Unmute Sounds' : 'Mute Sounds'}
+          </Button>
         </div>
       )}
 
@@ -400,6 +435,14 @@ export function WorkoutSession() {
                 <Text as="p" size="2">
                   Exercise {currentExerciseIndex + 1}/{workout.exercises.length}
                 </Text>
+                <Button 
+                  variant="ghost" 
+                  color="gray" 
+                  size="1" 
+                  onClick={toggleMute}
+                >
+                  {isMuted ? 'Unmute' : 'Mute'}
+                </Button>
               </Flex>
               <Progress value={totalProgress} className={styles.progressBar} />
             </Box>
