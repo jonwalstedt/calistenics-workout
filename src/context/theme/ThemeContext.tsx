@@ -1,12 +1,12 @@
 import { createContext, useState, useEffect, type ReactNode } from 'react';
 import { 
-  ThemeMode, 
-  ThemeContextType, 
+  type ThemeMode, 
+  type ThemeContextType, 
   getSystemPreference, 
   getInitialTheme 
 } from './theme-constants';
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 interface ThemeProviderProps {
   children: ReactNode;
