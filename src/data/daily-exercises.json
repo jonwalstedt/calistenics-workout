@@ -7,6 +7,22 @@
       "duration": 600,
       "repeats": 2,
       "pause": 30,
+      "warmup": [
+        {
+          "name": "Jumping Jacks",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/jumping-jacks.png",
+          "repetitions": null
+        },
+        {
+          "name": "High Knees",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/high-knees.png",
+          "repetitions": null
+        }
+      ],
       "exercises": [
         {
           "name": "Jump Squats",
@@ -52,6 +68,22 @@
       "duration": 600,
       "repeats": 2,
       "pause": 30,
+      "warmup": [
+        {
+          "name": "Jumping Jacks",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/jumping-jacks.png",
+          "repetitions": null
+        },
+        {
+          "name": "High Knees",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/high-knees.png",
+          "repetitions": null
+        }
+      ],
       "exercises": [
         {
           "name": "High Knees",
@@ -104,6 +136,22 @@
       "duration": 600,
       "repeats": 2,
       "pause": 30,
+      "warmup": [
+        {
+          "name": "Jumping Jacks",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/jumping-jacks.png",
+          "repetitions": null
+        },
+        {
+          "name": "High Knees",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/high-knees.png",
+          "repetitions": null
+        }
+      ],
       "exercises": [
         {
           "name": "Jumping Lunges",
@@ -149,6 +197,22 @@
       "duration": 600,
       "repeats": 2,
       "pause": 30,
+      "warmup": [
+        {
+          "name": "Jumping Jacks",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/jumping-jacks.png",
+          "repetitions": null
+        },
+        {
+          "name": "High Knees",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/high-knees.png",
+          "repetitions": null
+        }
+      ],
       "exercises": [
         {
           "name": "Arm Circles",
@@ -201,6 +265,22 @@
       "duration": 600,
       "repeats": 2,
       "pause": 30,
+      "warmup": [
+        {
+          "name": "Jumping Jacks",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/jumping-jacks.png",
+          "repetitions": null
+        },
+        {
+          "name": "High Knees",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/high-knees.png",
+          "repetitions": null
+        }
+      ],
       "exercises": [
         {
           "name": "Push-ups",
@@ -246,6 +326,22 @@
       "duration": 600,
       "repeats": 2,
       "pause": 30,
+      "warmup": [
+        {
+          "name": "Jumping Jacks",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/jumping-jacks.png",
+          "repetitions": null
+        },
+        {
+          "name": "High Knees",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/high-knees.png",
+          "repetitions": null
+        }
+      ],
       "exercises": [
         {
           "name": "Burpees",
@@ -291,6 +387,22 @@
       "duration": 600,
       "repeats": 2,
       "pause": 30,
+      "warmup": [
+        {
+          "name": "Jumping Jacks",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/jumping-jacks.png",
+          "repetitions": null
+        },
+        {
+          "name": "High Knees",
+          "description": "Jumping jacks to get the heart rate up.",
+          "duration": 30,
+          "image": "../assets/high-knees.png",
+          "repetitions": null
+        }
+      ],
       "exercises": [
         {
           "name": "Plank",
