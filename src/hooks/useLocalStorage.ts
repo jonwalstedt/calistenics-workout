@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 /**
  * A hook that allows reading and writing to localStorage with automatic JSON parsing/stringifying
@@ -8,8 +8,8 @@ import { useState, useEffect } from 'react';
  * @returns A stateful value and a function to update it
  */
 export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
-  // Get from localStorage or use initialValue
-  const readValue = (): T => {
+  // Get from localStorage or use initialValue - memoize to avoid re-creation on every render
+  const readValue = useCallback((): T => {
     // SSR check
     if (typeof window === 'undefined') {
       return initialValue;
@@ -22,7 +22,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T 
       console.warn(`Error reading localStorage key "${key}":`, error);
       return initialValue;
     }
-  };
+  }, [key, initialValue]);
 
   // Initialize state with stored value or initialValue
   const [storedValue, setStoredValue] = useState<T>(readValue);
@@ -59,7 +59,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T 
     
     // Clean up
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, [key]);
+  }, [key, readValue]);
 
   return [storedValue, setValue];
 }

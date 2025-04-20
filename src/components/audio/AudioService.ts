@@ -8,7 +8,7 @@ const SOUNDS = {
   EXERCISE_COMPLETE: exerciseCompleteSound,
 };
 
-class AudioService {
+export class AudioService {
   private audioCache = new Map<string, HTMLAudioElement>();
   private isMuted = false;
 
