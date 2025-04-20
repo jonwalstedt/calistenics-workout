@@ -1,154 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="Your personal calisthenics workout companion" />
-    
-    <!-- iOS specific meta tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Calisthenics" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Google tag with Consent Mode v2 (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CE3N8E60B0"></script>
-    <script>
-      // Default consent settings before user interaction
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      
-      // Set default consent state to 'denied' for analytics_storage, ad_storage, 
-      // ad_user_data and ad_personalization
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'wait_for_update': 500
-      });
-      
-      // Load Google Analytics with consent mode
-      gtag('config', 'G-CE3N8E60B0');
-      
-      // Function to update consent when user accepts cookies
-      window.updateConsent = function(consent) {
-        gtag('consent', 'update', {
-          'analytics_storage': consent ? 'granted' : 'denied',
-          'ad_storage': consent ? 'granted' : 'denied',
-          'ad_user_data': consent ? 'granted' : 'denied',
-          'ad_personalization': consent ? 'granted' : 'denied'
-        });
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Your personal calisthenics workout companion" />
+
+  <!-- iOS specific meta tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Calisthenics" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Google tag with Consent Mode v2 (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CE3N8E60B0"></script>
+  <script>
+    // Default consent settings before user interaction
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    // Set default consent state to 'denied' for analytics_storage, ad_storage,
+    // ad_user_data and ad_personalization
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500,
+    });
+
+    // Load Google Analytics with consent mode
+    gtag('config', 'G-CE3N8E60B0');
+  </script>
+
+  <!-- Cookie Consent Banner is now handled by separate module -->
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="/manifest.json" />
+
+  <title>Calisthenics Workout</title>
+
+  <!-- GitHub Pages route handling script -->
+  <script>
+    // Handle redirect from 404.html
+    (function () {
+      // Parse the URL
+      const query = window.location.search;
+      const urlParams = new URLSearchParams(query);
+      const redirectPath = urlParams.get('p');
+
+      // If we have a path from the 404 redirect, apply it
+      if (redirectPath) {
+        // Remove the 'p' query parameter and use its value for navigation
+        const cleanPath = redirectPath.replace(/^\?/, ''); // Remove leading ? if present
+
+        // Create clean URL with proper history
+        const cleanUrl =
+          window.location.origin +
+          window.location.pathname.replace(/\/index\.html$/, '') +
+          cleanPath;
+
+        // Replace the current state with the cleaned URL
+        window.history.replaceState(null, null, cleanUrl);
       }
-    </script>
-    
-    <!-- Simple Cookie Consent Banner -->
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        // Check if consent was already given
-        if (localStorage.getItem('cookieConsent') === 'true') {
-          window.updateConsent(true);
-          return;
-        }
-        
-        // Create cookie consent banner
-        const banner = document.createElement('div');
-        banner.id = 'cookie-consent-banner';
-        banner.style.position = 'fixed';
-        banner.style.bottom = '0';
-        banner.style.left = '0';
-        banner.style.right = '0';
-        banner.style.padding = '1rem';
-        banner.style.background = 'rgba(0, 0, 0, 0.8)';
-        banner.style.color = 'white';
-        banner.style.zIndex = '9999';
-        banner.style.display = 'flex';
-        banner.style.justifyContent = 'space-between';
-        banner.style.alignItems = 'center';
-        banner.style.flexWrap = 'wrap';
-        
-        const message = document.createElement('div');
-        message.innerHTML = `<p style="margin: 0 1rem 0 0;">This website uses cookies to improve your experience and analytics. By clicking "Accept" you consent to the use of cookies for analytics purposes.</p>`;
-        
-        const buttons = document.createElement('div');
-        buttons.style.display = 'flex';
-        buttons.style.gap = '0.5rem';
-        
-        const acceptButton = document.createElement('button');
-        acceptButton.textContent = 'Accept';
-        acceptButton.style.padding = '0.5rem 1rem';
-        acceptButton.style.background = 'var(--accent-9, #4f46e5)';
-        acceptButton.style.color = 'white';
-        acceptButton.style.border = 'none';
-        acceptButton.style.borderRadius = 'var(--border-radius, 4px)';
-        acceptButton.style.cursor = 'pointer';
-        
-        const rejectButton = document.createElement('button');
-        rejectButton.textContent = 'Reject';
-        rejectButton.style.padding = '0.5rem 1rem';
-        rejectButton.style.background = 'transparent';
-        rejectButton.style.color = 'white';
-        rejectButton.style.border = '1px solid white';
-        rejectButton.style.borderRadius = 'var(--border-radius, 4px)';
-        rejectButton.style.cursor = 'pointer';
-        
-        // Add event listeners
-        acceptButton.addEventListener('click', () => {
-          localStorage.setItem('cookieConsent', 'true');
-          window.updateConsent(true);
-          banner.remove();
-        });
-        
-        rejectButton.addEventListener('click', () => {
-          localStorage.setItem('cookieConsent', 'false');
-          window.updateConsent(false);
-          banner.remove();
-        });
-        
-        // Assemble and append the banner
-        buttons.appendChild(acceptButton);
-        buttons.appendChild(rejectButton);
-        banner.appendChild(message);
-        banner.appendChild(buttons);
-        document.body.appendChild(banner);
-      });
-    </script>
+    })();
+  </script>
+</head>
 
-    <!-- PWA manifest -->
-    <link rel="manifest" href="/manifest.json" />
-    
-    <title>Calisthenics Workout</title>
-    
-    <!-- GitHub Pages route handling script -->
-    <script>
-      // Handle redirect from 404.html
-      (function() {
-        // Parse the URL
-        const query = window.location.search;
-        const urlParams = new URLSearchParams(query);
-        const redirectPath = urlParams.get('p');
-        
-        // If we have a path from the 404 redirect, apply it
-        if (redirectPath) {
-          // Remove the 'p' query parameter and use its value for navigation
-          const cleanPath = redirectPath.replace(/^\?/, ''); // Remove leading ? if present
-          
-          // Create clean URL with proper history
-          const cleanUrl = window.location.origin + 
-                          window.location.pathname.replace(/\/index\.html$/, '') + 
-                          cleanPath;
-                          
-          // Replace the current state with the cleaned URL
-          window.history.replaceState(null, null, cleanUrl);
-        }
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

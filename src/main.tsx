@@ -16,6 +16,10 @@ import { UserProvider, ThemeProvider } from './context';
 import { registerSW } from 'virtual:pwa-register';
 import { OfflineNotification } from './components/offline';
 import { GlobalNav } from './components/navigation';
+import { initCookieConsent } from './components/cookie-consent';
+
+// Initialize cookie consent banner
+document.addEventListener('DOMContentLoaded', initCookieConsent);
 
 // Register service worker for PWA
 const updateSW = registerSW({
