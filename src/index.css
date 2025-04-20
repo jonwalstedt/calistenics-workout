@@ -11,23 +11,58 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Set box-sizing globally to better handle padding/border in width calculations */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
   width: 100%;
+  margin: 0 auto;
+  padding: 1rem; /* Reduced padding for mobile */
+  text-align: center;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .content {
   width: 100%;
+  padding-bottom: 80px; /* Account for the fixed navigation */
+}
+
+/* Make all images responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Base responsive utilities */
+.hide-on-mobile {
+  display: none;
+}
+
+/* Media query for tablets and up */
+@media (min-width: 768px) {
+  #root {
+    padding: 2rem;
+  }
+
+  .hide-on-mobile {
+    display: initial;
+  }
+
+  .hide-on-desktop {
+    display: none;
+  }
 }
 
 @media (prefers-color-scheme: light) {

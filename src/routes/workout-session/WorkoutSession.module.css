@@ -1,7 +1,9 @@
 .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .startScreen {
@@ -217,4 +219,38 @@
 
 .muteButton:hover {
   opacity: 1;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .pauseScreen,
+  .readyScreen {
+    padding: 1rem;
+  }
+
+  .nextExercisePreview {
+    max-width: 100%;
+  }
+
+  .exerciseDetail {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .progressHeader {
+    flex-wrap: wrap;
+  }
+}
+
+/* Tablets and larger screens */
+@media (min-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .pauseScreen,
+  .readyScreen {
+    padding: 2rem;
+  }
 }
