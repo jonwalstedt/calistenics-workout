@@ -131,8 +131,9 @@ export function WorkoutSession() {
       
       // Check if we've completed all warmup exercises
       if (nextWarmupIndex >= workout.warmup.length) {
-        // Warmup complete, start main exercises
-        startMainExercises();
+        // Warmup complete, call startMainExercises in the next render
+        setWorkoutState(WorkoutState.NOT_STARTED);
+        setTimeout(() => startMainExercises(), 0);
       } else {
         // Continue with next warmup exercise
         setCurrentWarmupIndex(nextWarmupIndex);
@@ -173,7 +174,7 @@ export function WorkoutSession() {
     
     // Transition to READY state
     setWorkoutState(WorkoutState.READY);
-  }, [workout, currentExerciseIndex, currentRound, addCompletedWorkout, startMainExercises]);
+  }, [workout, currentExerciseIndex, currentRound, nextExerciseInfo, addCompletedWorkout]);
 
   // Function to start the next exercise
   const startNextExercise = useCallback(() => {
@@ -257,8 +258,9 @@ export function WorkoutSession() {
     const nextWarmupIndex = currentWarmupIndex + 1;
     // Check if we've completed all warmup exercises
     if (nextWarmupIndex >= workout.warmup.length) {
-      // Warmup complete, start main exercises
-      startMainExercises();
+      // Warmup complete, use the same technique to avoid circular dependency
+      setWorkoutState(WorkoutState.NOT_STARTED);
+      setTimeout(() => startMainExercises(), 0);
       return;
     }
 
@@ -272,7 +274,7 @@ export function WorkoutSession() {
     } else {
       setTimeLeft(null);
     }
-  }, [workout, currentWarmupIndex, startMainExercises]);
+  }, [workout, currentWarmupIndex]);
 
   // Timer effect for exercises and pauses
   useEffect(() => {
