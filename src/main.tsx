@@ -2,17 +2,19 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import './theme.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { Root } from './routes/root';
 import { ErrorPage } from './error-page';
 import { WorkoutHistory } from './routes/workout-history';
 import { WorkoutSession } from './routes/workout-session';
+import { Settings } from './routes/settings';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import { UserProvider, ThemeProvider } from './context';
 // @ts-expect-error - Virtual module from vite-plugin-pwa
 import { registerSW } from 'virtual:pwa-register';
 import { OfflineNotification } from './components/offline';
+import { GlobalNav } from './components/navigation';
 
 // Register service worker for PWA
 const updateSW = registerSW({
@@ -32,16 +34,34 @@ const updateSW = registerSW({
 // In production with GitHub Pages, this will match the repository name
 const baseUrl = import.meta.env.BASE_URL;
 
+// Layout component that includes the global navigation
+function AppLayout() {
+  return (
+    <>
+      <Outlet />
+      <GlobalNav />
+    </>
+  );
+}
+
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Root />,
+    element: <AppLayout />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: '/history',
-    element: <WorkoutHistory />,
-    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/',
+        element: <Root />,
+      },
+      {
+        path: '/history',
+        element: <WorkoutHistory />,
+      },
+      {
+        path: '/settings',
+        element: <Settings />,
+      },
+    ]
   },
   {
     path: '/workout/:workoutId',

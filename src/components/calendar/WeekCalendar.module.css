@@ -1,0 +1,65 @@
+.container {
+  padding: 12px 16px;
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.title {
+  margin-bottom: 12px;
+  color: var(--gray-11);
+}
+
+.daysContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dayItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40px;
+  position: relative;
+  border-radius: 8px;
+  padding: 8px 4px;
+  transition: background-color 0.2s ease;
+}
+
+.dayItem.today {
+  background-color: var(--accent-3);
+}
+
+.dayName {
+  color: var(--gray-10);
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+.dayNumber {
+  font-size: 16px;
+}
+
+.today .dayNumber {
+  color: var(--accent-11);
+}
+
+.completedIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-9);
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Mobile optimization */
+@media (max-width: 360px) {
+  .dayItem {
+    width: 36px;
+  }
+} 

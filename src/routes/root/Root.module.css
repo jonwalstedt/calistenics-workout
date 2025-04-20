@@ -34,7 +34,7 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .header {
@@ -43,37 +43,15 @@
   align-items: center;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
 }
 
-.stats {
-  background-color: var(--muted);
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.workoutOptions {
-  margin-top: 2rem;
-}
-
-.historyLink {
-  color: var(--primary-600);
-  text-decoration: none;
-  margin-left: 0.5rem;
-  font-weight: var(--font-weight-medium);
-  transition: color 0.2s ease;
-}
-
-.historyLink:hover {
-  color: var(--primary-700);
-  text-decoration: underline;
+.sectionTitle {
+  margin-bottom: 0.75rem;
 }
 
 .todayWorkout {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .workoutCard {

@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { Button, Heading, Text, Card, Flex, Box } from '@radix-ui/themes';
-import { Link } from 'react-router-dom';
 import { LoginForm } from '../../components/login';
 import { useUser } from '../../context';
 import { useWorkoutSchedule } from '../../hooks';
 import { ExerciseCard } from '../../components/workout';
 import { ThemeToggle } from '../../components/theme';
+import { WeekCalendar } from '../../components/calendar';
 import styles from './Root.module.css';
 
 export function Root() {
-  const { login, user, logout, isLoggedIn, hasCompletedTodaysWorkout } =
-    useUser();
+  const { login, user, logout, isLoggedIn } = useUser();
   const { getTodayWorkout, isLoaded } = useWorkoutSchedule();
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -55,107 +54,79 @@ export function Root() {
         <div className={styles.dashboard}>
           <div className={styles.header}>
             <Heading as="h1" size="6">
-              Welcome back, {user?.name}!
+              Welcome, {user?.name}!
             </Heading>
             <Flex gap="2" align="center">
               <ThemeToggle />
-              <Button variant="soft" onClick={handleLogout}>
+              <Button variant="soft" onClick={handleLogout} size="1">
                 Logout
               </Button>
             </Flex>
           </div>
 
-          <div className={styles.stats}>
-            <Text as="p">
-              Your account was created on:{' '}
-              {new Date(user?.createdAt || '').toLocaleDateString()}
-            </Text>
-            <Text as="p">
-              Last login: {new Date(user?.lastLogin || '').toLocaleString()}
-            </Text>
-            <Text as="p">
-              Workouts completed: {user?.completedWorkouts.length || 0}{' '}
-              {(user?.completedWorkouts ?? []).length > 0 && (
-                <Link to="/history" className={styles.historyLink}>
-                  View history
-                </Link>
-              )}
-            </Text>
-          </div>
+          {/* Week Calendar */}
+          <WeekCalendar title="Activity" />
 
-          <div className={styles.workoutOptions}>
-            <Heading as="h2" size="4">
-              Today's Workout
-            </Heading>
+          {/* Today's Workout */}
+          {isLoaded && todayWorkout ? (
+            <div className={styles.todayWorkout}>
+              <Heading as="h2" size="4" className={styles.sectionTitle}>
+                Today's Workout
+              </Heading>
+              
+              <Card className={styles.workoutCard}>
+                <Flex direction="column" gap="3">
+                  <Heading as="h3" size="3">
+                    {todayWorkout.name}
+                  </Heading>
+                  <Text as="p" size="2">
+                    {todayWorkout.description}
+                  </Text>
 
-            {isLoaded && todayWorkout ? (
-              <div className={styles.todayWorkout}>
-                <Card className={styles.workoutCard}>
-                  <Flex direction="column" gap="3">
-                    <Heading as="h3" size="3">
-                      {todayWorkout.name}
-                    </Heading>
-                    <Text as="p" size="2">
-                      {todayWorkout.description}
-                    </Text>
-
-                    <Box className={styles.workoutStats}>
-                      <Flex gap="4" justify="center">
-                        <Box>
-                          <Text as="p" size="1" color="gray">
-                            Exercises
-                          </Text>
-                          <Text as="p" size="3" weight="bold">
-                            {todayWorkout.exercises.length}
-                          </Text>
-                        </Box>
-                        <Box>
-                          <Text as="p" size="1" color="gray">
-                            Rounds
-                          </Text>
-                          <Text as="p" size="3" weight="bold">
-                            {todayWorkout.repeats}
-                          </Text>
-                        </Box>
-                        <Box>
-                          <Text as="p" size="1" color="gray">
-                            Duration
-                          </Text>
-                          <Text as="p" size="3" weight="bold">
-                            {Math.floor(todayWorkout.duration / 60)} min
-                          </Text>
-                        </Box>
-                      </Flex>
-                    </Box>
-
-                    {/* Preview first exercise */}
-                    {todayWorkout.exercises.length > 0 && (
-                      <div className={styles.exercisePreview}>
-                        <Text as="p" size="2" className={styles.previewLabel}>
-                          First exercise:
+                  <Box className={styles.workoutStats}>
+                    <Flex gap="4" justify="center">
+                      <Box>
+                        <Text as="p" size="1" color="gray">
+                          Exercises
                         </Text>
-                        <ExerciseCard exercise={todayWorkout.exercises[0]} />
-                      </div>
-                    )}
-
-                    <Flex justify="center" mt="3">
-                      {hasCompletedTodaysWorkout() ? (
-                        <Button disabled>Completed Today</Button>
-                      ) : (
-                        <Button asChild>
-                          <Link to={`/workout/${todayWorkout.day}`}>
-                            Start Workout
-                          </Link>
-                        </Button>
-                      )}
+                        <Text as="p" size="3" weight="bold">
+                          {todayWorkout.exercises.length}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text as="p" size="1" color="gray">
+                          Rounds
+                        </Text>
+                        <Text as="p" size="3" weight="bold">
+                          {todayWorkout.repeats}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text as="p" size="1" color="gray">
+                          Duration
+                        </Text>
+                        <Text as="p" size="3" weight="bold">
+                          {Math.floor(todayWorkout.duration / 60)} min
+                        </Text>
+                      </Box>
                     </Flex>
-                  </Flex>
-                </Card>
-              </div>
-            ) : (
-              <Text as="p">Loading today's workout...</Text>
-            )}
-          </div>
+                  </Box>
+
+                  {/* Preview first exercise */}
+                  {todayWorkout.exercises.length > 0 && (
+                    <div className={styles.exercisePreview}>
+                      <Text as="p" size="2" className={styles.previewLabel}>
+                        First exercise:
+                      </Text>
+                      <ExerciseCard exercise={todayWorkout.exercises[0]} />
+                    </div>
+                  )}
+                </Flex>
+              </Card>
+            </div>
+          ) : (
+            <Text as="p">Loading today's workout...</Text>
+          )}
         </div>
       )}
     </div>
