@@ -62,9 +62,53 @@
   }
 }
 
-.dateGroup {
+.calendarSection {
   margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
+}
+
+.statsSection {
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  padding: 1rem;
+  min-width: 120px;
+  flex: 1;
+  background-color: var(--workout-card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.noWorkoutsMessage {
+  margin-top: 2rem;
+}
+
+.messageCard {
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--workout-card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+.workoutHistory {
+  margin-top: 2rem;
+}
+
+.dateGroup {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--border);
 }
 
@@ -83,6 +127,12 @@
   margin: 0;
 }
 
+.workoutSubList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .workoutItem {
   padding: 0.8rem;
   margin-bottom: 0.5rem;
@@ -96,8 +146,12 @@
   background-color: var(--workout-item-hover);
 }
 
+.workoutItem:last-child {
+  margin-bottom: 0;
+}
+
 .selectedDate {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   padding: 1rem;
   border-radius: var(--border-radius);
   background-color: var(--muted);
@@ -114,5 +168,10 @@
   
   .header > div {
     align-self: flex-end;
+  }
+  
+  .statCard {
+    min-width: 100px;
+    padding: 0.75rem;
   }
 } 

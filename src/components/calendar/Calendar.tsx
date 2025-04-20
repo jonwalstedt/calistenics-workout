@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Box, Text, Button, Flex, Grid } from '@radix-ui/themes';
+import { Box, Text, Button, Flex, Grid, Heading } from '@radix-ui/themes';
 import styles from './Calendar.module.css';
 
 interface CalendarProps {
   workoutDates: string[]; // Array of dates in 'YYYY-MM-DD' format
   onDateClick?: (date: string) => void;
+  title?: string; // Optional title for the calendar
 }
 
-export function Calendar({ workoutDates, onDateClick }: CalendarProps) {
+export function Calendar({ workoutDates, onDateClick, title }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   
   // Get the first day of the month
@@ -85,6 +86,10 @@ export function Calendar({ workoutDates, onDateClick }: CalendarProps) {
   
   return (
     <Box className={styles.calendarContainer}>
+      {title && (
+        <Heading as="h2" size="4" mb="2">{title}</Heading>
+      )}
+      
       <Flex justify="between" align="center" mb="3">
         <Button variant="ghost" onClick={goToPreviousMonth}>&lt;</Button>
         <Text size="3" weight="bold">{monthName} {currentDate.getFullYear()}</Text>
