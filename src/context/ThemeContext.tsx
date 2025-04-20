@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-type ThemeMode = 'light' | 'dark';
+type ThemeMode = 'light' | 'dark' | 'system';
 
 interface ThemeContextType {
   theme: ThemeMode;
@@ -15,39 +15,63 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  // Get preferred theme from localStorage or system preference
+  // Get system preference
+  const getSystemPreference = (): 'light' | 'dark' => {
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  
+  // Get preferred theme from localStorage or default to system
   const getInitialTheme = (): ThemeMode => {
     const savedTheme = localStorage.getItem('theme') as ThemeMode;
     
-    if (savedTheme && ['light', 'dark'].includes(savedTheme)) {
+    if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
       return savedTheme;
     }
     
-    // Check system preference
-    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    
-    return 'light';
+    // Default to 'system' for new users
+    return 'system';
   };
   
   const [theme, setTheme] = useState<ThemeMode>(getInitialTheme);
+  const [systemPreference, setSystemPreference] = useState<'light' | 'dark'>(getSystemPreference);
+  
+  // Listen for system preference changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (event: MediaQueryListEvent) => {
+      setSystemPreference(event.matches ? 'dark' : 'light');
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
   
   // Apply theme to document
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
+    const effectiveTheme = theme === 'system' ? systemPreference : theme;
+    document.documentElement.dataset.theme = effectiveTheme;
     localStorage.setItem('theme', theme);
-  }, [theme]);
+  }, [theme, systemPreference]);
   
-  // Toggle between light and dark modes
+  // Toggle between light, dark, and system modes
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme((prev) => {
+      if (prev === 'light') return 'dark';
+      if (prev === 'dark') return 'system';
+      return 'light';
+    });
   };
+  
+  const effectiveTheme = theme === 'system' ? systemPreference : theme;
   
   const value = {
     theme,
     toggleTheme,
-    isDark: theme === 'dark'
+    isDark: effectiveTheme === 'dark'
   };
   
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

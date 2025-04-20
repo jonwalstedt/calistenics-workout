@@ -385,7 +385,6 @@ export function WorkoutSession() {
                 <ExerciseCard
                   exercise={currentExercise}
                   isActive
-                  timeLeft={timeLeft}
                 />
 
                 {/* Large timer display for timed exercises */}

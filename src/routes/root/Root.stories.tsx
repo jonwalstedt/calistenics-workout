@@ -6,7 +6,7 @@ import {
   reactRouterParameters,
   withRouter,
 } from 'storybook-addon-react-router-v6';
-import { UserContext } from '../../context';
+import { ThemeProvider, UserContext } from '../../context';
 import { mockUser } from '../../test-utils';
 
 const meta = {
@@ -19,18 +19,20 @@ const meta = {
   decorators: [
     withRouter,
     (Story) => (
-      <UserContext.Provider
-        value={{
-          user: mockUser,
-          login: fn(),
-          logout: fn(),
-          addCompletedWorkout: fn(),
-          isLoggedIn: true,
-          hasCompletedTodaysWorkout: fn(),
-        }}
-      >
-        <Story />
-      </UserContext.Provider>
+      <ThemeProvider>
+        <UserContext.Provider
+          value={{
+            user: mockUser,
+            login: fn(),
+            logout: fn(),
+            addCompletedWorkout: fn(),
+            isLoggedIn: true,
+            hasCompletedTodaysWorkout: fn(),
+          }}
+        >
+          <Story />
+        </UserContext.Provider>
+      </ThemeProvider>
     ),
   ],
 } satisfies Meta<typeof Root>;

@@ -3,7 +3,7 @@ import { useTheme } from '../../context';
 import styles from './ThemeToggle.module.css';
 
 export function ThemeToggle() {
-  const { toggleTheme, isDark } = useTheme();
+  const { theme, toggleTheme, isDark } = useTheme();
   
   return (
     <Button 
@@ -11,9 +11,35 @@ export function ThemeToggle() {
       size="2" 
       className={styles.themeToggle}
       onClick={toggleTheme}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={
+        theme === 'system' 
+          ? "Using system preference. Click to switch to light mode" 
+          : isDark 
+            ? "Dark mode. Click to switch to system preference" 
+            : "Light mode. Click to switch to dark mode"
+      }
     >
-      {isDark ? (
+      {theme === 'system' ? (
+        <svg
+          className={styles.icon}
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          role="img"
+        >
+          <title>System theme icon</title>
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+          <line x1="12" y1="17" x2="12" y2="21" />
+        </svg>
+      ) : isDark ? (
         <svg 
           className={styles.icon} 
           xmlns="http://www.w3.org/2000/svg" 
