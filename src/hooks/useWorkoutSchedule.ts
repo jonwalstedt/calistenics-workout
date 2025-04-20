@@ -8,6 +8,7 @@ export interface Exercise {
   duration: number | null;
   image: string;
   repetitions: number | null;
+  pauseDuration?: number; // Optional pause time after this exercise
   resolvedImageSrc?: string; // Added for the processed imported image
 }
 
@@ -17,7 +18,7 @@ export interface WorkoutDay {
   description: string;
   duration: number;
   repeats: number;
-  pause: number;
+  pauseDuration: number; // Default pause duration between exercises
   warmup: Exercise[]; // Add warmup exercises array
   exercises: Exercise[];
 }

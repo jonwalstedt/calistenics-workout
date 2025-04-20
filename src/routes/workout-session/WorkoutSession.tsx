@@ -180,11 +180,14 @@ export function WorkoutSession() {
     setIsTimerPaused(false);
 
     if (workoutState === WorkoutState.EXERCISE) {
+      // Get the current exercise to use its pauseDuration value if available
+      const currentExercise = workout.exercises[currentExerciseIndex];
       // After completing an exercise, always go to pause state
       setWorkoutState(WorkoutState.PAUSE);
-      setTimeLeft(workout.pause);
+      // Use exercise-specific pause time if available, otherwise use workout default
+      setTimeLeft(currentExercise.pauseDuration !== undefined ? currentExercise.pauseDuration : workout.pauseDuration);
     }
-  }, [workout, workoutState]);
+  }, [workout, workoutState, currentExerciseIndex]);
 
   // Start main exercises after warmup is complete
   const startMainExercises = useCallback(() => {
@@ -457,7 +460,22 @@ export function WorkoutSession() {
                   Pause
                 </Text>
                 <Text as="p" size="3" weight="bold">
-                  {workout.pause}s
+                  {(() => {
+                    // Check if any exercises have custom pause times
+                    const hasCustomPauses = workout.exercises.some(ex => ex.pauseDuration !== undefined && ex.pauseDuration !== workout.pauseDuration);
+                    
+                    if (hasCustomPauses) {
+                      // Find min and max pause times
+                      const pauseTimes = workout.exercises
+                        .map(ex => ex.pauseDuration !== undefined ? ex.pauseDuration : workout.pauseDuration);
+                      const minPause = Math.min(...pauseTimes);
+                      const maxPause = Math.max(...pauseTimes);
+                      
+                      return minPause === maxPause ? `${minPause}s` : `${minPause}-${maxPause}s`;
+                    }
+                    
+                    return `${workout.pauseDuration}s`;
+                  })()}
                 </Text>
               </Box>
             </Flex>
@@ -496,11 +514,18 @@ export function WorkoutSession() {
                   <Text as="p" size="2" weight="bold">
                     {exercise.name}
                   </Text>
-                  <Text as="p" size="1">
-                    {exercise.duration
-                      ? `${exercise.duration}s`
-                      : `${exercise.repetitions} reps`}
-                  </Text>
+                  <Flex direction="column" align="end">
+                    <Text as="p" size="1">
+                      {exercise.duration
+                        ? `${exercise.duration}s`
+                        : `${exercise.repetitions} reps`}
+                    </Text>
+                    {exercise.pauseDuration !== undefined && exercise.pauseDuration !== workout.pauseDuration && (
+                      <Text as="p" size="1" color="amber">
+                        Rest: {exercise.pauseDuration}s
+                      </Text>
+                    )}
+                  </Flex>
                 </div>
               ))}
             </div>
@@ -587,7 +612,7 @@ export function WorkoutSession() {
                 )}
                 
                 <DonutTimer
-                  duration={workout.pause}
+                  duration={timeLeft !== null ? timeLeft : workout.pauseDuration}
                   timeLeft={timeLeft}
                   isPaused={isTimerPaused}
                   color="amber"
