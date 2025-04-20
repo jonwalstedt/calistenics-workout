@@ -207,3 +207,14 @@
 .abortButton:hover {
   opacity: 1;
 }
+
+.muteButton {
+  margin-top: 8px;
+  align-self: center;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.muteButton:hover {
+  opacity: 1;
+}
