@@ -123,8 +123,33 @@ export function WorkoutSession() {
 
   // Function to prepare for the next exercise
   const prepareNextExercise = useCallback(() => {
-    if (!workout) return;
+    if (!workout || !nextExerciseInfo) return;
 
+    // Check if this is a warmup pause completion (indicated by round === -1)
+    if (nextExerciseInfo.round === -1) {
+      const nextWarmupIndex = nextExerciseInfo.index;
+      
+      // Check if we've completed all warmup exercises
+      if (nextWarmupIndex >= workout.warmup.length) {
+        // Warmup complete, start main exercises
+        startMainExercises();
+      } else {
+        // Continue with next warmup exercise
+        setCurrentWarmupIndex(nextWarmupIndex);
+        setWorkoutState(WorkoutState.WARMUP);
+        
+        // Set timer for next warmup exercise
+        const nextWarmupExercise = workout.warmup[nextWarmupIndex];
+        if (nextWarmupExercise?.duration) {
+          setTimeLeft(nextWarmupExercise.duration);
+        } else {
+          setTimeLeft(null);
+        }
+      }
+      return;
+    }
+
+    // Normal exercise flow - process as before
     let nextIndex: number;
     let nextRound = currentRound;
 
@@ -148,7 +173,7 @@ export function WorkoutSession() {
     
     // Transition to READY state
     setWorkoutState(WorkoutState.READY);
-  }, [workout, currentExerciseIndex, currentRound, addCompletedWorkout]);
+  }, [workout, currentExerciseIndex, currentRound, addCompletedWorkout, startMainExercises]);
 
   // Function to start the next exercise
   const startNextExercise = useCallback(() => {
@@ -211,9 +236,25 @@ export function WorkoutSession() {
   const moveToNextWarmupExercise = useCallback(() => {
     if (!workout) return;
 
-    // Move to next warmup exercise
-    const nextWarmupIndex = currentWarmupIndex + 1;
+    // Get the current warmup exercise
+    const currentExercise = workout.warmup[currentWarmupIndex];
+    
+    // After completing a warmup exercise, check if it has a pause duration
+    if (currentExercise?.pauseDuration !== undefined) {
+      // Go to pause state
+      setWorkoutState(WorkoutState.PAUSE);
+      setTimeLeft(currentExercise.pauseDuration);
+      
+      // Use nextExerciseInfo to store a special state
+      setNextExerciseInfo({
+        index: currentWarmupIndex + 1, // Next warmup exercise index
+        round: -1 // Use -1 to indicate this is a warmup pause
+      });
+      return;
+    }
 
+    // No pause, move to next warmup exercise directly
+    const nextWarmupIndex = currentWarmupIndex + 1;
     // Check if we've completed all warmup exercises
     if (nextWarmupIndex >= workout.warmup.length) {
       // Warmup complete, start main exercises

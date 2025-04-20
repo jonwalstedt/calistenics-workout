@@ -13,14 +13,16 @@
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 15
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "pauseDuration": 20
         }
       ],
       "exercises": [
