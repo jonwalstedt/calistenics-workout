@@ -1,43 +1,35 @@
-import { createContext, useState, useEffect, type ReactNode } from 'react';
-import { 
-  type ThemeMode, 
-  type ThemeContextType, 
-  getSystemPreference, 
-  getInitialTheme 
-} from './theme-constants';
+import { useEffect, useState } from 'react';
+import { getInitialTheme, getSystemPreference } from '../utils';
+import { ThemeMode } from '../interfaces';
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-interface ThemeProviderProps {
-  children: ReactNode;
-}
-
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+export const useThemeSettings = () => {
   const [theme, setTheme] = useState<ThemeMode>(getInitialTheme);
-  const [systemPreference, setSystemPreference] = useState<'light' | 'dark'>(getSystemPreference);
-  
+  const [systemPreference, setSystemPreference] = useState<'light' | 'dark'>(
+    getSystemPreference
+  );
+
   // Listen for system preference changes
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = (event: MediaQueryListEvent) => {
       setSystemPreference(event.matches ? 'dark' : 'light');
     };
-    
+
     mediaQuery.addEventListener('change', handleChange);
-    
+
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
-  
+
   // Apply theme to document
   useEffect(() => {
     const effectiveTheme = theme === 'system' ? systemPreference : theme;
     document.documentElement.dataset.theme = effectiveTheme;
     localStorage.setItem('theme', theme);
   }, [theme, systemPreference]);
-  
+
   // Toggle between light, dark, and system modes
   const toggleTheme = () => {
     setTheme((prev) => {
@@ -46,14 +38,12 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
       return 'light';
     });
   };
-  
+
   const effectiveTheme = theme === 'system' ? systemPreference : theme;
-  
-  const value = {
+
+  return {
     theme,
     toggleTheme,
-    isDark: effectiveTheme === 'dark'
+    effectiveTheme,
   };
-  
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
-}; 
+};
