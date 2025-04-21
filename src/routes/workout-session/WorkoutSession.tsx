@@ -89,6 +89,21 @@ export function WorkoutSession() {
   const getUpcomingExercise = useCallback((): Exercise | null => {
     if (!workout) return null;
     
+    // Check if we're in warmup phase (indicated by a special nextExerciseInfo)
+    if (nextExerciseInfo && nextExerciseInfo.round === -1) {
+      // We're in warmup phase, the next exercise will be a warmup
+      const nextWarmupIndex = nextExerciseInfo.index;
+      
+      // Return the next warmup exercise if available
+      if (nextWarmupIndex < workout.warmup.length) {
+        return workout.warmup[nextWarmupIndex];
+      } 
+      
+      // If we're at the last warmup exercise, preview the first regular exercise
+      return workout.exercises[0];
+    }
+    
+    // Regular exercise flow - find the next exercise in the sequence
     let nextIndex: number;
     let nextRound = currentRound;
 
@@ -106,7 +121,7 @@ export function WorkoutSession() {
     }
     
     return workout.exercises[nextIndex];
-  }, [workout, currentExerciseIndex, currentRound]);
+  }, [workout, currentExerciseIndex, currentRound, nextExerciseInfo]);
 
   // Helper to calculate total progress percentage
   const calculateTotalProgress = useCallback(() => {
@@ -274,7 +289,7 @@ export function WorkoutSession() {
     } else {
       setTimeLeft(null);
     }
-  }, [workout, currentWarmupIndex]);
+  }, [workout, currentWarmupIndex, startMainExercises]);
 
   // Timer effect for exercises and pauses
   useEffect(() => {
@@ -646,7 +661,11 @@ export function WorkoutSession() {
                 {getUpcomingExercise() && (
                   <div className={styles.nextExercisePreview}>
                     <Heading as="h3" size="3" className={styles.previewHeading}>
-                      Coming Up Next:
+                      {nextExerciseInfo && nextExerciseInfo.round === -1 ? 
+                        nextExerciseInfo.index < workout.warmup.length ? 
+                          "Next Warmup Exercise:" : 
+                          "First Main Exercise:" 
+                        : "Coming Up Next:"}
                     </Heading>
                     <ExerciseCard 
                       exercise={getUpcomingExercise() || workout.exercises[0]} 

@@ -1,2 +1,2 @@
-export { default as useLocalStorage } from './useLocalStorage';
-export { default as useWorkoutSchedule } from './useWorkoutSchedule';
+export { useLocalStorage } from './useLocalStorage';
+export { useWorkoutSchedule } from './useWorkoutSchedule';
