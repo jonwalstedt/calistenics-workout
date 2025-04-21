@@ -15,7 +15,8 @@
     "build-storybook": "storybook build",
     "generate-icons": "node scripts/generate-icons.js",
     "postinstall": "echo 'Dependency installation complete with legacy-peer-deps enabled'",
-    "check": "tsc --noEmit && eslint ."
+    "check": "tsc --noEmit && eslint .",
+    "ci": "npm run lint && tsc --noEmit && npm run test"
   },
   "dependencies": {
     "@radix-ui/themes": "^3.2.1",
