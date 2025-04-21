@@ -1,31 +1,8 @@
-import {
-  createContext,
-  useContext,
-  ReactNode,
-  useState,
-  useCallback,
-} from 'react';
-import { User, CompletedWorkout } from '../types';
-import { useLocalStorage } from '../hooks';
+import { useCallback, useState } from 'react';
+import { useLocalStorage } from '../../../hooks';
+import { CompletedWorkout, User } from '../../../types';
 
-interface UserContextType {
-  user: User | null;
-  login: (name: string) => void;
-  logout: () => void;
-  addCompletedWorkout: (workoutId: number) => void;
-  isLoggedIn: boolean;
-  hasCompletedTodaysWorkout: () => boolean;
-}
-
-export const UserContext = createContext<UserContextType | undefined>(
-  undefined
-);
-
-interface UserProviderProps {
-  children: ReactNode;
-}
-
-export const UserProvider = ({ children }: UserProviderProps) => {
+export const useCalistenicsUser = () => {
   const [user, setUser] = useLocalStorage<User | null>(
     'calistenics-user',
     null
@@ -89,7 +66,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     });
   }, [user]);
 
-  const value = {
+  return {
     user,
     login,
     logout,
@@ -97,14 +74,4 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     isLoggedIn,
     hasCompletedTodaysWorkout,
   };
-
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
-};
-
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
 };
