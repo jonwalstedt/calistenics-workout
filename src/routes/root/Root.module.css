@@ -2,7 +2,7 @@
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 0 var(--navigation-height);
 }
 
 .login {
@@ -59,7 +59,9 @@
   background-color: var(--workout-card-bg);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .workoutCard:hover {
@@ -91,7 +93,7 @@
     margin: 2rem auto;
     padding: 0 1rem;
   }
-  
+
   .themeToggleContainer {
     top: -40px;
     right: 0;

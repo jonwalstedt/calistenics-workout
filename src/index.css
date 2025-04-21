@@ -12,7 +12,9 @@
 }
 
 /* Set box-sizing globally to better handle padding/border in width calculations */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -22,21 +24,23 @@ body {
   min-width: 320px;
   min-height: 100vh;
   width: 100%;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden;
+  /* Prevent horizontal scrolling */
 }
 
 #root {
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem; /* Reduced padding for mobile */
   text-align: center;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden;
+  /* Prevent horizontal scrolling */
 }
 
 .content {
   width: 100%;
-  padding-bottom: 80px; /* Account for the fixed navigation */
+  padding-bottom: 80px;
+  /* Account for the fixed navigation */
 }
 
 /* Make all images responsive by default */
