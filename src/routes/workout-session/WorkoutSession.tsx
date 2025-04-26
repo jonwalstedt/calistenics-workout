@@ -1,52 +1,42 @@
-import { Navigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Text, Button } from '@radix-ui/themes';
-import { useUser } from '../../context';
-import { useWorkoutSessionState } from './hooks/useWorkoutSessionState';
 import { WorkoutState } from './interfaces';
-import {
-  WorkoutStartScreen,
-  WorkoutPauseScreen,
-  WorkoutReadyScreen,
-  ExerciseScreen,
-  WorkoutCompletedScreen,
-  WorkoutHeader,
-} from './components';
-import styles from './WorkoutSession.module.css';
+import { WarmupScreen } from './warmup-screen';
+import { ExerciseScreen } from './exercise-screen';
+import { RestScreen } from './rest-screen';
+import { WorkoutDay } from '../../types';
+import { useWorkoutSessionState } from './hooks';
 
-export function WorkoutSession() {
-  const { isLoggedIn } = useUser();
+interface WorkoutSessionProps {
+  workout: WorkoutDay | null;
+  onWorkoutComplete: () => void;
+}
+
+export function WorkoutSession({
+  workout,
+  onWorkoutComplete,
+}: WorkoutSessionProps) {
   const {
-    workout,
+    setWorkoutState,
+    exercisesWithoutWarmup,
+    warmupExercises,
+    totalNumberOfExercises,
+    progress,
+    totalProgress,
+    currentRound,
     workoutState,
     currentExercise,
-    nextExercise,
     upcomingExercise,
-    currentExerciseIndex,
-    currentWarmupIndex,
-    currentRound,
-    timeLeft,
-    totalProgress,
-    isTimerPaused,
-    isMuted,
-    nextExerciseInfo,
-    toggleTimerPause,
-    toggleMute,
-    handleStart,
-    handleSkip,
-    handleComplete,
-    prepareNextExercise,
-    startNextExercise,
-  } = useWorkoutSessionState();
-
-  // Redirect if not logged in
-  if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
-  }
+    goToNextExercise,
+  } = useWorkoutSessionState({
+    workout,
+    onWorkoutComplete,
+  });
 
   // Loading state or workout not found
   if (!workout) {
     return (
-      <div className={styles.container}>
+      <div>
         <Text as="p">Loading workout or workout not found...</Text>
         <Button asChild variant="soft">
           <Link to="/">Back to Dashboard</Link>
@@ -55,95 +45,45 @@ export function WorkoutSession() {
     );
   }
 
-  console.log('workoutState:', workoutState);
   return (
-    <div className={styles.container}>
-      {/* Start screen */}
-      {workoutState === WorkoutState.NOT_STARTED && (
-        <WorkoutStartScreen
-          workout={workout}
-          isMuted={isMuted}
-          onStart={handleStart}
-          onToggleMute={toggleMute}
+    <div>
+      <h1>WorkoutSession</h1>
+      <div>
+        <h1>Temp header</h1>
+        <p>Total number of warmup exercises: {warmupExercises.length}</p>
+        <p>
+          Total number of exercises in this round:{' '}
+          {exercisesWithoutWarmup.length}
+        </p>
+        <p>Total number of exercises: {totalNumberOfExercises}</p>
+        <p>Percentage done: {totalProgress}</p>
+        <p>Current round: {currentRound}</p>
+        <p>Current exercise count: {progress.currentRoundExerciseIndex}</p>
+        <p>Total exercise count: {progress.totalExerciseIndex}</p>
+      </div>
+      {workoutState === WorkoutState.REST && (
+        <RestScreen
+          goToNextExercise={goToNextExercise}
+          restDuration={workout.restDuration ?? currentExercise.restDuration}
+          upcomingExercise={upcomingExercise}
         />
       )}
-
-      {/* Active workout screens (Exercise, Pause, Ready) */}
-      {(workoutState === WorkoutState.EXERCISE ||
-        workoutState === WorkoutState.PAUSE ||
-        workoutState === WorkoutState.READY ||
-        workoutState === WorkoutState.WARMUP) &&
-        currentExercise && (
-          <div className={styles.workoutScreen}>
-            {/* Header with progress */}
-            <WorkoutHeader
-              workoutState={workoutState}
-              currentRound={currentRound}
-              totalRounds={workout.repeats}
-              currentExerciseIndex={currentExerciseIndex}
-              totalExercises={workout.exercises.length}
-              currentWarmupIndex={currentWarmupIndex}
-              totalWarmups={workout.warmup.length}
-              totalProgress={totalProgress}
-              timeLeft={timeLeft}
-              restDuration={workout.restDuration}
-              isMuted={isMuted}
-              onToggleMute={toggleMute}
-            />
-
-            {/* Pause screen */}
-            {workoutState === WorkoutState.PAUSE && (
-              <WorkoutPauseScreen
-                timeLeft={timeLeft}
-                restDuration={workout.restDuration}
-                isTimerPaused={isTimerPaused}
-                upcomingExercise={upcomingExercise}
-                nextExerciseInfo={nextExerciseInfo}
-                warmupLength={workout.warmup.length}
-                onTogglePause={toggleTimerPause}
-                onSkipRest={prepareNextExercise}
-              />
-            )}
-
-            {/* Ready screen */}
-            {workoutState === WorkoutState.READY && nextExercise && (
-              <WorkoutReadyScreen
-                nextExercise={nextExercise}
-                onStartNextExercise={startNextExercise}
-              />
-            )}
-
-            {/* Warmup screen */}
-            {workoutState === WorkoutState.WARMUP && (
-              <ExerciseScreen
-                exercise={currentExercise}
-                isWarmup={true}
-                isTimerPaused={isTimerPaused}
-                timeLeft={timeLeft}
-                onTogglePause={toggleTimerPause}
-                onSkip={handleSkip}
-                onComplete={handleComplete}
-              />
-            )}
-
-            {/* Exercise screen */}
-            {workoutState === WorkoutState.EXERCISE && (
-              <ExerciseScreen
-                exercise={currentExercise}
-                isTimerPaused={isTimerPaused}
-                timeLeft={timeLeft}
-                onTogglePause={toggleTimerPause}
-                onSkip={handleSkip}
-                onComplete={handleComplete}
-              />
-            )}
-          </div>
-        )}
-
-      {/* Completed screen */}
-      {workoutState === WorkoutState.COMPLETED && (
-        <WorkoutCompletedScreen workout={workout} />
+      {workoutState === WorkoutState.WARMUP && (
+        <WarmupScreen
+          currentExercise={currentExercise}
+          goToNextExercise={goToNextExercise}
+        />
       )}
+      {workoutState === WorkoutState.EXERCISE && (
+        <ExerciseScreen
+          currentExercise={currentExercise}
+          restDuration={workout.restDuration ?? currentExercise.restDuration}
+          workoutState={workoutState}
+          setWorkoutState={setWorkoutState}
+          goToNextExercise={goToNextExercise}
+        />
+      )}
+      {workoutState === WorkoutState.FINISHED && <div>All done fixme!</div>}
     </div>
   );
 }

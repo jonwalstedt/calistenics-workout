@@ -19,5 +19,10 @@ export function useWorkoutLoader() {
     }
   }, [isLoaded, workoutId, getWorkoutByDay]);
 
-  return { workout, isLoaded };
+  const exercises = workout?.exercises || [];
+  const exercisesWithouthWarmup = exercises.filter(
+    (exercise) => exercise.type !== 'warmup'
+  );
+
+  return { workout, isLoaded, exercises, exercisesWithouthWarmup };
 }

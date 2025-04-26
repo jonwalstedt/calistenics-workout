@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { Root } from './routes/root';
 import { ErrorPage } from './error-page';
 import { WorkoutHistory } from './routes/workout-history';
-import { WorkoutSessionDataLoader } from './routes/workout-session-v2';
+import { WorkoutSessionDataLoader } from './routes/workout-session';
 import { Settings } from './routes/settings';
 import { WorkoutSchedule } from './routes/schedule';
 import '@radix-ui/themes/styles.css';

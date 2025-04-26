@@ -3,13 +3,17 @@ import { fn } from '@storybook/test';
 
 import { ExerciseScreen } from './ExerciseScreen';
 import { WorkoutState } from '../interfaces';
-import { ReactNode, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import { workout } from '../mocks';
+import { ThemeProvider } from '../../../context';
 
 const TestComponent = ({
   children,
 }: {
-  children: (workoutState: any, setWorkoutState: any) => ReactNode;
+  children: (
+    workoutState: WorkoutState,
+    setWorkoutState: Dispatch<SetStateAction<WorkoutState>>
+  ) => ReactNode;
 }) => {
   const [workoutState, setWorkoutState] = useState<WorkoutState>(
     WorkoutState.EXERCISE
@@ -19,6 +23,13 @@ const TestComponent = ({
 
 const meta = {
   component: ExerciseScreen,
+  decorators: [
+    (Story) => (
+      <ThemeProvider>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
 } satisfies Meta<typeof ExerciseScreen>;
 
 export default meta;
@@ -40,8 +51,10 @@ export const Default: Story = {
     );
   },
   args: {
-    workout,
+    currentExercise: workout.exercises[0],
+    restDuration: 5,
     workoutState: WorkoutState.EXERCISE,
     setWorkoutState: fn(),
+    goToNextExercise: fn(),
   },
 };

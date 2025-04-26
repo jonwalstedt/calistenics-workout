@@ -3,7 +3,7 @@ import { Exercise } from '../../../types';
 import { ExerciseCard } from '../../../components/workout';
 import { DonutTimer } from '../../../components/timer';
 import styles from './styles.module.css';
-import { useTimer } from '../../workout-session/hooks';
+import { useTimer } from '../../../hooks';
 
 interface RestScreenProps {
   autostartCountdown?: boolean;
