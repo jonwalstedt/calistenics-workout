@@ -54,6 +54,20 @@
   margin-top: 0.5rem;
 }
 
+.progressBarContainer {
+  margin-top: 0.5rem;
+  height: 8px;
+  width: 100%;
+  border-radius: 4px;
+  background-color: var(--gray-5);
+  overflow: hidden;
+}
+
+.pauseProgressBar {
+  height: 100%;
+  border-radius: 4px;
+}
+
 .pauseScreen {
   display: flex;
   flex-direction: column;
@@ -171,7 +185,7 @@
   width: 100%;
   max-width: 300px;
   margin-top: 1rem;
-  justify-content: center;
+  justify-content: center !important;
 }
 
 .controlButton {
@@ -232,6 +246,7 @@
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {
+
   .pauseScreen,
   .readyScreen {
     padding: 1rem;

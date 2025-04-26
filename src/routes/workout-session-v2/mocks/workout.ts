@@ -1,0 +1,71 @@
+import { WorkoutDay } from '../../../types';
+import { getImageSrc } from '../../../utils';
+
+export const workout = {
+  day: 1,
+  name: 'Full-Body Fat Burn',
+  description: 'A high-intensity workout to burn fat and build endurance.',
+  duration: 600,
+  repeats: 2,
+  restDuration: 5,
+  exercises: [
+    {
+      name: 'Jumping Jacks',
+      description: 'Jumping jacks to get the heart rate up.',
+      duration: 5,
+      image: getImageSrc('../assets/jumping-jacks.png'),
+      repetitions: null,
+      restDuration: null,
+      type: 'warmup',
+    },
+    {
+      name: 'High Knees',
+      description: 'Jumping jacks to get the heart rate up.',
+      duration: 5,
+      image: getImageSrc('../assets/high-knees.png'),
+      repetitions: null,
+      restDuration: 5,
+      type: 'warmup',
+    },
+    {
+      name: 'Jump Squats',
+      description: 'A powerful squat jump to increase heart rate.',
+      duration: 5,
+      image: getImageSrc('../assets/jump-squats.png'),
+      repetitions: null,
+      type: 'exercise',
+    },
+    {
+      name: 'Push-ups',
+      description: 'A classic exercise to build upper body strength.',
+      duration: null,
+      image: getImageSrc('../assets/push-ups.png'),
+      repetitions: 15,
+      type: 'exercise',
+    },
+    {
+      name: 'Mountain Climbers',
+      description: 'A dynamic exercise to work on core and cardio.',
+      duration: 5,
+      image: getImageSrc('../assets/mountain-climbers.png'),
+      repetitions: null,
+      type: 'exercise',
+    },
+    {
+      name: 'Glute Bridges',
+      description: 'A great exercise for glute activation and core stability.',
+      duration: null,
+      image: getImageSrc('../assets/glute-bridges.png'),
+      repetitions: 15,
+      type: 'exercise',
+    },
+    {
+      name: 'Plank',
+      description: 'An isometric hold to strengthen the core.',
+      duration: 5,
+      image: getImageSrc('../assets/plank.png'),
+      repetitions: null,
+      type: 'exercise',
+    },
+  ],
+} satisfies WorkoutDay;

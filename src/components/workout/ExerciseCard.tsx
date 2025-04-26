@@ -1,6 +1,6 @@
 import { Card, Heading, Text, Flex, Box } from '@radix-ui/themes';
-import { Exercise } from '../../hooks/useWorkoutSchedule';
 import styles from './ExerciseCard.module.css';
+import { Exercise } from '../../types';
 
 interface ExerciseCardProps {
   exercise: Exercise;

@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { Root } from './routes/root';
 import { ErrorPage } from './error-page';
 import { WorkoutHistory } from './routes/workout-history';
-import { WorkoutSession } from './routes/workout-session';
+import { WorkoutSessionDataLoader } from './routes/workout-session-v2';
 import { Settings } from './routes/settings';
 import { WorkoutSchedule } from './routes/schedule';
 import '@radix-ui/themes/styles.css';
@@ -49,45 +49,53 @@ function AppLayout() {
   );
 }
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      element: <AppLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: '/',
+          element: <Root />,
+        },
+        {
+          path: '/history',
+          element: <WorkoutHistory />,
+        },
+        {
+          path: '/settings',
+          element: <Settings />,
+        },
+        {
+          path: '/schedule',
+          element: <WorkoutSchedule />,
+        },
+      ],
+    },
+    {
+      path: '/workout/:workoutId',
+      element: <WorkoutSessionDataLoader />,
+      errorElement: <ErrorPage />,
+    },
+  ],
   {
-    element: <AppLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: '/',
-        element: <Root />,
-      },
-      {
-        path: '/history',
-        element: <WorkoutHistory />,
-      },
-      {
-        path: '/settings',
-        element: <Settings />,
-      },
-      {
-        path: '/schedule',
-        element: <WorkoutSchedule />,
-      },
-    ]
-  },
-  {
-    path: '/workout/:workoutId',
-    element: <WorkoutSession />,
-    errorElement: <ErrorPage />,
-  },
-], {
-  // Use the base URL from environment for GitHub Pages compatibility
-  basename: baseUrl,
-});
+    // Use the base URL from environment for GitHub Pages compatibility
+    basename: baseUrl,
+  }
+);
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
       <ThemeProvider>
-        <Theme appearance="inherit" scaling="100%" radius="medium" accentColor="indigo">
+        <Theme
+          appearance="inherit"
+          scaling="100%"
+          radius="medium"
+          accentColor="indigo"
+        >
           <UserProvider>
             <OfflineNotification />
             <div className="content">

@@ -6,58 +6,65 @@
       "description": "A high-intensity workout to burn fat and build endurance.",
       "duration": 600,
       "repeats": 2,
-      "pauseDuration": 30,
-      "warmup": [
+      "restDuration": 30,
+      "exercises": [
         {
           "name": "Jumping Jacks",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
-          "repetitions": null
+          "repetitions": null,
+          "restDuration": null,
+          "type": "warmup"
         },
         {
           "name": "High Knees",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
-        }
-      ],
-      "exercises": [
+          "repetitions": null,
+          "restDuration": 15,
+          "type": "warmup"
+        },
         {
           "name": "Jump Squats",
           "description": "A powerful squat jump to increase heart rate.",
           "duration": 30,
           "image": "../assets/jump-squats.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Push-ups",
           "description": "A classic exercise to build upper body strength.",
           "duration": null,
           "image": "../assets/push-ups.png",
-          "repetitions": 15
+          "repetitions": 15,
+          "type": "exercise"
         },
         {
           "name": "Mountain Climbers",
           "description": "A dynamic exercise to work on core and cardio.",
           "duration": 30,
           "image": "../assets/mountain-climbers.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Glute Bridges",
           "description": "A great exercise for glute activation and core stability.",
           "duration": null,
           "image": "../assets/glute-bridges.png",
-          "repetitions": 15
+          "repetitions": 15,
+          "type": "exercise"
         },
         {
           "name": "Plank",
           "description": "An isometric hold to strengthen the core.",
           "duration": 30,
           "image": "../assets/plank.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         }
       ]
     },
@@ -67,15 +74,16 @@
       "description": "A focused workout to strengthen the core and improve cardiovascular fitness.",
       "duration": 600,
       "repeats": 2,
-      "pauseDuration": 30,
-      "warmup": [
+      "restDuration": 30,
+      "exercises": [
         {
           "name": "Jumping Jacks",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "pauseDuration": 0
+          "restDuration": 0,
+          "type": "warmup"
         },
         {
           "name": "High Knees",
@@ -83,51 +91,56 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "pauseDuration": 0
-        }
-      ],
-      "exercises": [
+          "restDuration": 0,
+          "type": "warmup"
+        },
         {
           "name": "High Knees",
           "description": "A fast-paced exercise to elevate heart rate.",
           "duration": 30,
           "image": "../assets/high-knees.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Plank Shoulder Taps",
           "description": "A core stability exercise with a twist.",
           "duration": 30,
           "image": "../assets/plank-shoulder-taps.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Russian Twists",
           "description": "FIXME",
           "duration": 30,
           "image": "../assets/russian-twists.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Burpees",
           "description": "A full-body exercise to build strength and endurance.",
           "duration": null,
           "image": "../assets/burpees.png",
-          "repetitions": 10
+          "repetitions": 10,
+          "type": "exercise"
         },
         {
           "name": "Bicycle Crunches",
           "description": "A core exercise to target the obliques.",
           "duration": 30,
           "image": "../assets/bicycle-crunches.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Hollow Hold",
           "description": "A core exercise to build stability and strength.",
           "duration": 20,
           "image": "../assets/hollow-hold.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         }
       ]
     },
@@ -137,15 +150,16 @@
       "description": "A workout focused on building strength and endurance in the lower body.",
       "duration": 600,
       "repeats": 2,
-      "pauseDuration": 30,
-      "warmup": [
+      "restDuration": 30,
+      "exercises": [
         {
           "name": "Jumping Jacks",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "pauseDuration": 0
+          "restDuration": 0,
+          "type": "warmup"
         },
         {
           "name": "High Knees",
@@ -153,44 +167,48 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "pauseDuration": 0
-        }
-      ],
-      "exercises": [
+          "restDuration": 0,
+          "type": "warmup"
+        },
         {
           "name": "Jumping Lunges",
           "description": "A plyometric exercise to build leg strength and power.",
           "duration": 30,
           "image": "../assets/jumping-lunges.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Wall Sit",
           "description": "An isometric exercise to build endurance in the legs.",
           "duration": 30,
           "image": "../assets/wall-sit.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Squats",
           "description": "A fundamental exercise for lower body strength.",
           "duration": null,
           "image": "../assets/squats.png",
-          "repetitions": 15
+          "repetitions": 15,
+          "type": "exercise"
         },
         {
           "name": "Calf Raises",
           "description": "A simple exercise to strengthen the calves.",
           "duration": null,
           "image": "../assets/calf-raises.png",
-          "repetitions": 20
+          "repetitions": 20,
+          "type": "exercise"
         },
         {
           "name": "Plank with Leg Lift",
           "description": "A core and glute exercise to build stability.",
           "duration": 30,
           "image": "../assets/plank-with-leg-lifts.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         }
       ]
     },
@@ -200,15 +218,16 @@
       "description": "A light workout focused on mobility and recovery.",
       "duration": 600,
       "repeats": 2,
-      "pauseDuration": 30,
-      "warmup": [
+      "restDuration": 30,
+      "exercises": [
         {
           "name": "Jumping Jacks",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "pauseDuration": 0
+          "restDuration": 0,
+          "type": "warmup"
         },
         {
           "name": "High Knees",
@@ -216,51 +235,56 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "pauseDuration": 0
-        }
-      ],
-      "exercises": [
+          "restDuration": 0,
+          "type": "warmup"
+        },
         {
           "name": "Arm Circles",
           "description": "A mobility exercise to warm up the shoulders.",
           "duration": 30,
           "image": "../assets/arm-circles.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Slow March in Place",
           "description": "A gentle exercise to get the blood flowing.",
           "duration": 60,
           "image": "../assets/slow-march-in-place.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Cat Cow Stretch",
           "description": "A yoga pose to improve spinal flexibility.",
           "duration": 30,
           "image": "../assets/cat-cow-stretch.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Forward Fold Hang",
           "description": "A stretch to release tension in the back and hamstrings.",
           "duration": 30,
           "image": "../assets/forward-fold-hang.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Glute Bridge Hold",
           "description": "A gentle exercise to activate the glutes and core.",
           "duration": 30,
           "image": "../assets/glute-bridge-hod.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Deep Squat Hold",
           "description": "A stretch to improve hip and ankle mobility.",
           "duration": 30,
           "image": "../assets/deep-squat-hold.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         }
       ]
     },
@@ -270,15 +294,16 @@
       "description": "A workout focused on building strength in the upper body and core.",
       "duration": 600,
       "repeats": 2,
-      "pauseDuration": 30,
-      "warmup": [
+      "restDuration": 30,
+      "exercises": [
         {
           "name": "Jumping Jacks",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "pauseDuration": 0
+          "restDuration": 0,
+          "type": "warmup"
         },
         {
           "name": "High Knees",
@@ -286,52 +311,57 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "pauseDuration": 0
-        }
-      ],
-      "exercises": [
+          "restDuration": 0,
+          "type": "warmup"
+        },
         {
           "name": "Push-ups",
           "description": "A classic exercise to build upper body strength.",
           "duration": null,
           "image": "../assets/push-ups.png",
-          "repetitions": 15
+          "repetitions": 15,
+          "type": "exercise"
         },
         {
           "name": "Triceps Dips (on a chair)",
           "description": "An exercise to target the triceps.",
           "duration": null,
           "image": "../assets/triceps-dips-chair.png",
-          "repetitions": 15
+          "repetitions": 15,
+          "type": "exercise"
         },
         {
           "name": "Plank to Push-up",
           "description": "A dynamic exercise to build upper body strength.",
           "duration": 30,
           "image": "../assets/plank-to-push-up.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Side Plank (left side)",
           "description": "An isometric hold to strengthen the obliques.",
           "duration": 20,
           "image": "../assets/side-plank.png",
-          "pauseDuration": 0,
-          "repetitions": null
+          "restDuration": 0,
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Side Plank (right side)",
           "description": "An isometric hold to strengthen the obliques.",
           "duration": 20,
           "image": "../assets/side-plank.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Flutter Kicks",
           "description": "A core exercise to target the lower abs.",
           "duration": 30,
           "image": "../assets/flutter-kicks.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         }
       ]
     },
@@ -341,15 +371,16 @@
       "description": "A high-intensity interval training workout for the entire body.",
       "duration": 600,
       "repeats": 2,
-      "pauseDuration": 30,
-      "warmup": [
+      "restDuration": 30,
+      "exercises": [
         {
           "name": "Jumping Jacks",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "pauseDuration": 0
+          "restDuration": 0,
+          "type": "warmup"
         },
         {
           "name": "High Knees",
@@ -357,44 +388,48 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "pauseDuration": 0
-        }
-      ],
-      "exercises": [
+          "restDuration": 0,
+          "type": "warmup"
+        },
         {
           "name": "Burpees",
           "description": "A full-body exercise to build strength and endurance.",
           "duration": 30,
           "image": "../assets/burpees.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Jump Squats",
           "description": "A powerful squat jump to increase heart rate.",
           "duration": 30,
           "image": "../assets/jump-squats.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Push-ups",
           "description": "A classic exercise to build upper body strength.",
           "duration": null,
           "image": "../assets/push-ups.png",
-          "repetitions": 10
+          "repetitions": 10,
+          "type": "exercise"
         },
         {
           "name": "Mountain Climbers",
           "description": "A dynamic exercise to work on core and cardio.",
           "duration": 30,
           "image": "../assets/mountain-climbers.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Fast Feet",
           "description": "A quick footwork drill to improve agility.",
           "duration": 30,
           "image": "../assets/fast-feet.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         }
       ]
     },
@@ -404,15 +439,16 @@
       "description": "A workout to strengthen the core and improve balance.",
       "duration": 600,
       "repeats": 2,
-      "pauseDuration": 30,
-      "warmup": [
+      "restDuration": 30,
+      "exercises": [
         {
           "name": "Jumping Jacks",
           "description": "Jumping jacks to get the heart rate up.",
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "pauseDuration": 0
+          "restDuration": 0,
+          "type": "warmup"
         },
         {
           "name": "High Knees",
@@ -420,52 +456,57 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "pauseDuration": 0
-        }
-      ],
-      "exercises": [
+          "restDuration": 0,
+          "type": "warmup"
+        },
         {
           "name": "Plank",
           "description": "An isometric hold to strengthen the core.",
           "duration": 30,
           "image": "../assets/plank.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Bird-Dog",
           "description": "A core stability exercise to improve balance.",
           "duration": 30,
           "image": "../assets/bird-dog.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "V-Ups",
           "description": "A core exercise to target the abs.",
           "duration": null,
           "image": "../assets/v-ups.png",
-          "repetitions": 15
+          "repetitions": 15,
+          "type": "exercise"
         },
         {
           "name": "Side Plan Reach (left side)",
           "description": "A balance exercise to improve stability.",
           "duration": 20,
           "image": "../assets/side-plank-reach.png",
-          "pauseDuration": 0,
-          "repetitions": null
+          "restDuration": 0,
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Side Plan Reach (right side)",
           "description": "A balance exercise to improve stability.",
           "duration": 20,
           "image": "../assets/side-plank-reach.png",
-          "repetitions": null
+          "repetitions": null,
+          "type": "exercise"
         },
         {
           "name": "Leg Raises",
           "description": "A quick footwork drill to improve agility.",
           "duration": null,
           "image": "../assets/leg-raises.png",
-          "repetitions": 15
+          "repetitions": 15,
+          "type": "exercise"
         }
       ]
     }

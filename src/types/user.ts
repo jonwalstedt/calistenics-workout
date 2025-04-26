@@ -1,7 +1,4 @@
-export interface CompletedWorkout {
-  date: string; // ISO string
-  workoutId: number;
-}
+import { CompletedWorkout } from './CompletedWorkout';
 
 export interface User {
   name: string;
