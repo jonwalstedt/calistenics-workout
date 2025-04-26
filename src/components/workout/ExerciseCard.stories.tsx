@@ -17,8 +17,6 @@ const meta = {
   component: ExerciseCard,
 } satisfies Meta<typeof ExerciseCard>;
 
-export default meta;
-
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
@@ -26,3 +24,5 @@ export const Default: Story = {
     exercise,
   },
 };
+
+export default meta;

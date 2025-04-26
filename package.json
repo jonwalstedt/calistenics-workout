@@ -17,7 +17,7 @@
     "generate-icons": "node scripts/generate-icons.js",
     "postinstall": "echo 'Dependency installation complete with legacy-peer-deps enabled'",
     "check": "tsc --noEmit && eslint .",
-    "ci": "CI=true && npm run lint && tsc --noEmit && npm run test"
+    "ci": "npm run lint && tsc --noEmit && npm run test"
   },
   "dependencies": {
     "@radix-ui/themes": "^3.2.1",
