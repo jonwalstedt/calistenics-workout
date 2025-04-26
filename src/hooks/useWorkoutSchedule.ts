@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import scheduleData from '../data/daily-exercises.json';
 import { getImageSrc } from '../utils';
 import useSWR from 'swr';
-import { WorkoutDay } from '../types';
+import { Exercise, WorkoutDay } from '../types';
 
 const WORKOUT_SCHEDULE_KEY = 'workout-schedule';
 
@@ -14,10 +14,13 @@ async function fetcher(): Promise<WorkoutDay[]> {
   // const data = await response.json();
   return scheduleData.schedule.map((workout) => {
     // Process each exercise to convert image paths to imported images
-    const processedExercises = workout.exercises.map((exercise) => ({
-      ...exercise,
-      resolvedImageSrc: getImageSrc(exercise.image),
-    }));
+    const processedExercises = workout.exercises.map(
+      (exercise) =>
+        ({
+          ...exercise,
+          resolvedImageSrc: getImageSrc(exercise.image),
+        }) as Exercise
+    );
 
     return {
       ...workout,
