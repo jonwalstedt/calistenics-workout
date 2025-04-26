@@ -11,7 +11,6 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: 'pages'
   cancel-in-progress: true
@@ -29,7 +28,6 @@ jobs:
           node-version: 18
           cache: 'npm'
 
-      # Configure npm before install
       - name: Configure npm
         run: |
           echo "Using legacy-peer-deps=true for npm"
@@ -39,11 +37,27 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      # - name: Run tests, linting, and type checking
-      #   run: npm run ci
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Run tests, linting, and type checking
+        run: npm run ci
+        continue-on-error: false
+
+      - name: Build Storybook
+        run: npm run build-storybook --quiet
+        continue-on-error: false
+
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:127.0.0.1:6006 && npm run test:storybook"
+        continue-on-error: false
 
       - name: Build project
         run: npm run build
+        continue-on-error: false
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
