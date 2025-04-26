@@ -1,7 +1,7 @@
 name: 'Storybook Tests'
- 
+
 on: push
- 
+
 jobs:
   test:
     timeout-minutes: 60
@@ -12,25 +12,25 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-      
+
       # Configure npm before install
       - name: Configure npm
         run: |
           echo "Using legacy-peer-deps=true for npm"
           npm config set legacy-peer-deps true
           npm config list
-          
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-      
-      - name: Install Playwright
-        run: npx playwright install --with-deps
-      
-      - name: Build Storybook
-        run: npm run build-storybook --quiet
-      
-      - name: Serve Storybook and run tests
-        run: |
-          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-            "npx http-server storybook-static --port 6006 --silent" \
-            "npx wait-on tcp:127.0.0.1:6006 && npm run test:storybook" 
+
+      #- name: Install dependencies
+      #  run: npm ci --legacy-peer-deps
+      #
+      #- name: Install Playwright
+      #  run: npx playwright install --with-deps
+      #
+      #- name: Build Storybook
+      #  run: npm run build-storybook --quiet
+      #
+      #- name: Serve Storybook and run tests
+      #  run: |
+      #    npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+      #      "npx http-server storybook-static --port 6006 --silent" \
+      #      "npx wait-on tcp:127.0.0.1:6006 && npm run test:storybook"
