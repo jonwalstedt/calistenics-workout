@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
-import { useLocalStorage } from '../../../hooks';
 import { CompletedWorkout, User } from '../../../types';
+import { useLocalStorage } from 'usehooks-ts';
 
 export const useCalistenicsUser = () => {
   const [user, setUser] = useLocalStorage<User | null>(
     'calistenics-user',
     null
   );
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!user);
 
   const login = useCallback(

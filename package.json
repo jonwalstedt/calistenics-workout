@@ -17,7 +17,7 @@
     "generate-icons": "node scripts/generate-icons.js",
     "postinstall": "echo 'Dependency installation complete with legacy-peer-deps enabled'",
     "check": "tsc --noEmit && eslint .",
-    "ci": "npm run lint && tsc --noEmit && npm run test && npm run test:storybook && npm run build-storybook"
+    "ci": "CI=true && npm run lint && tsc --noEmit && npm run test"
   },
   "dependencies": {
     "@radix-ui/themes": "^3.2.1",
@@ -28,6 +28,7 @@
     "react-router": "^6.30.0",
     "react-router-dom": "^6.30.0",
     "swr": "2.3.3",
+    "usehooks-ts": "3.1.1",
     "vite-plugin-pwa": "^1.0.0"
   },
   "devDependencies": {

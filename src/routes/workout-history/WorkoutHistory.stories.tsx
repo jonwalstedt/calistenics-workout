@@ -7,7 +7,7 @@ import {
   withRouter,
 } from 'storybook-addon-react-router-v6';
 import { mockUser } from '../../test-utils';
-import { UserContext } from '../../context';
+import { ThemeProvider, UserContext } from '../../context';
 
 const meta = {
   component: WorkoutHistory,
@@ -19,18 +19,20 @@ const meta = {
   decorators: [
     withRouter,
     (Story) => (
-      <UserContext.Provider
-        value={{
-          user: mockUser,
-          login: fn(),
-          logout: fn(),
-          addCompletedWorkout: fn(),
-          isLoggedIn: true,
-          hasCompletedTodaysWorkout: fn(),
-        }}
-      >
-        <Story />
-      </UserContext.Provider>
+      <ThemeProvider>
+        <UserContext.Provider
+          value={{
+            user: mockUser,
+            login: fn(),
+            logout: fn(),
+            addCompletedWorkout: fn(),
+            isLoggedIn: true,
+            hasCompletedTodaysWorkout: fn(),
+          }}
+        >
+          <Story />
+        </UserContext.Provider>
+      </ThemeProvider>
     ),
   ],
 } satisfies Meta<typeof WorkoutHistory>;

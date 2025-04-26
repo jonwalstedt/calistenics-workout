@@ -103,8 +103,7 @@ export const useWorkoutSessionState = ({
       };
     });
   };
-  console.log('exercisesWithoutWarmup:', exercisesWithoutWarmup);
-  console.log('warmupExercises:', warmupExercises);
+
   return {
     workoutState,
     setWorkoutState,
