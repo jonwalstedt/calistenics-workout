@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const TICK_INTERVAL = 1000; // 1 second
 
@@ -14,6 +14,7 @@ interface UseTimerProps {
 export function useTimer({ initialTime, isActive, onComplete }: UseTimerProps) {
   const [timeLeft, setTimeLeft] = useState<number | null>(initialTime);
   const [isTimerPaused, setIsTimerPaused] = useState(false);
+  const hasCompletedRef = useRef(false); // <--- HERE
 
   const togglePause = useCallback(() => {
     setIsTimerPaused((prev) => !prev);
@@ -21,10 +22,12 @@ export function useTimer({ initialTime, isActive, onComplete }: UseTimerProps) {
 
   const resetTimer = useCallback((newTime: number | null) => {
     setTimeLeft(newTime);
+    hasCompletedRef.current = false; // <--- Reset complete state
   }, []);
 
   useEffect(() => {
     setTimeLeft(initialTime);
+    hasCompletedRef.current = false; // <--- Reset on initialTime change
   }, [initialTime]);
 
   useEffect(() => {
@@ -36,9 +39,15 @@ export function useTimer({ initialTime, isActive, onComplete }: UseTimerProps) {
       setTimeLeft((prevTime) => {
         if (prevTime === null || prevTime <= 1) {
           clearInterval(timer);
-          setTimeout(() => {
-            onComplete({ togglePause, resetTimer });
-          }, 0);
+
+          // Guard against double calls
+          if (!hasCompletedRef.current) {
+            hasCompletedRef.current = true;
+            setTimeout(() => {
+              onComplete({ togglePause, resetTimer });
+            }, 0);
+          }
+
           return 0;
         }
         return prevTime - 1;

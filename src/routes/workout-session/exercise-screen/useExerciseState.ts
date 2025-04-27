@@ -36,6 +36,7 @@ export function useExerciseState({
     },
   });
 
+  // Reset timer when currentExercise changes
   useEffect(() => {
     if (!currentExercise) {
       return;

@@ -1,15 +1,15 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useUser } from '../../context';
 import { useWorkoutLoader } from './hooks';
+import { Link } from 'react-router-dom';
+import { Text, Button } from '@radix-ui/themes';
 import { WorkoutSession } from './WorkoutSession';
 
 export function WorkoutSessionDataLoader() {
-  const { workoutId } = useParams<{ workoutId: string }>();
-  console.log('workoutId:', workoutId);
   const { isLoggedIn, addCompletedWorkout } = useUser();
 
   // Load workout data
-  const { workout } = useWorkoutLoader();
+  const { workout, isLoaded } = useWorkoutLoader();
 
   // Redirect if not logged in
   if (!isLoggedIn) {
@@ -21,6 +21,25 @@ export function WorkoutSessionDataLoader() {
       addCompletedWorkout(workout!.day);
     }
   };
+
+  if (!isLoaded) {
+    return (
+      <div>
+        <Text as="p">Loading workout...</Text>
+      </div>
+    );
+  }
+
+  if (!workout) {
+    return (
+      <div>
+        <Text as="p">Loading workout or workout not found...</Text>
+        <Button asChild variant="soft">
+          <Link to="/">Back to Dashboard</Link>
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <WorkoutSession

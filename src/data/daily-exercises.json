@@ -456,7 +456,7 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": 5,
           "type": "warmup"
         },
         {

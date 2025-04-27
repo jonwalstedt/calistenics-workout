@@ -52,6 +52,10 @@ export const useWorkoutSessionState = ({
     (progress.totalExerciseIndex / totalNumberOfExercises) * 100
   );
 
+  const warmupProgress = Math.round(
+    (progress.totalExerciseIndex / warmupExercises.length) * 100
+  );
+
   const goToNextRound = () => {
     setCurrentRound((prev) => prev + 1);
     setWorkoutState(WorkoutState.EXERCISE);
@@ -85,7 +89,7 @@ export const useWorkoutSessionState = ({
 
         return {
           currentRoundExerciseIndex: prev.currentRoundExerciseIndex,
-          totalExerciseIndex: prev.totalExerciseIndex + 1, // ✅ INCREMENT here!
+          totalExerciseIndex: prev.totalExerciseIndex + 1,
         };
       }
 
@@ -115,7 +119,9 @@ export const useWorkoutSessionState = ({
     exercisesWithoutWarmup,
     currentRound,
     totalNumberOfExercises,
-    totalProgress,
+    maxRounds,
     progress,
+    totalProgress,
+    warmupProgress,
   };
 };

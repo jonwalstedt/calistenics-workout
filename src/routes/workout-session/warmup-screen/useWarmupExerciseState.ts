@@ -24,6 +24,7 @@ export function useWarmupExerciseState({
     },
   });
 
+  // Reset timer when currentExercise changes
   useEffect(() => {
     if (!currentExercise) {
       return;
