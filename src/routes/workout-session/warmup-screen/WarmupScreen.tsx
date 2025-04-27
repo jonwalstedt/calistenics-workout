@@ -4,7 +4,7 @@ import { ExerciseCard } from '../../../components/workout';
 import { DonutTimer } from '../../../components/timer';
 import { ExerciseState } from '../interfaces';
 import { useWarmupExerciseState } from './useWarmupExerciseState';
-import styles from './styles.module.css';
+import styles from './WarmupScreen.module.css';
 
 interface WarmupProps {
   currentExercise: Exercise | null;
@@ -28,7 +28,7 @@ export function WarmupScreen({
   }
 
   return (
-    <div>
+    <div className={styles.card}>
       <div className={styles.warmupIndicator}>
         <Text as="p" size="2" color="blue">
           Warmup Phase

@@ -5,7 +5,7 @@ import { DonutTimer } from '../../../components/timer';
 import { WorkoutState, ExerciseState } from '../interfaces';
 import { useExerciseState } from './useExerciseState';
 import { Dispatch, SetStateAction } from 'react';
-// import styles from './styles.module.css';
+import styles from './ExerciseScreen.module.css';
 
 interface ExerciseProps {
   currentExercise: Exercise | null;
@@ -50,7 +50,7 @@ export function ExerciseScreen({
   }
 
   return (
-    <div>
+    <div className={styles.card}>
       <ExerciseCard exercise={currentExercise} isActive />
 
       {duration && duration >= 0 && (

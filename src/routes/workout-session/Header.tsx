@@ -1,63 +1,70 @@
-import { Flex, Text, Button, Progress } from '@radix-ui/themes';
-import { WorkoutState } from './interfaces';
+import { Flex, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
+import { Exercise, WARMUP } from '../../types';
 
 interface HeadersProps {
+  warmupExercises: Exercise[];
+  exercisesWithoutWarmup: Exercise[];
   workoutName: string;
-  workoutState: WorkoutState;
   progress: {
     currentRoundExerciseIndex: number;
     totalExerciseIndex: number;
   };
-  warmupProgress: number;
-  totalProgress: number;
   totalRounds: number;
   currentRound: number;
-  totalNumberOfExercises: number;
   totalWarmups: number;
-  isMuted: boolean;
-  onToggleMute: () => void;
 }
 
 export function Header({
+  warmupExercises,
+  exercisesWithoutWarmup,
   workoutName,
-  workoutState,
   progress,
-  warmupProgress,
-  totalProgress,
   totalWarmups,
   totalRounds,
   currentRound,
-  totalNumberOfExercises,
-  isMuted,
-  onToggleMute,
 }: HeadersProps) {
-  const { totalExerciseIndex } = progress;
-  const isWarmup = workoutState === WorkoutState.WARMUP;
-  const progressPercentage = isWarmup ? warmupProgress : totalProgress;
+  const { totalExerciseIndex, currentRoundExerciseIndex } = progress;
+  const totalRoundsArray = Array.from({ length: totalRounds }, (_, i) => i);
+  const exercisesOverSets = totalRoundsArray.flatMap(() => [
+    ...exercisesWithoutWarmup,
+  ]);
+  const exercises = [...warmupExercises, ...exercisesOverSets];
   return (
     <div className={styles.progressHeader}>
       <h1>{workoutName}</h1>
       <Flex justify="between" align="center">
-        {isWarmup ? (
-          <Text as="p" size="2" color="blue">
-            Warmup {totalExerciseIndex + 1}/{totalWarmups}
+        <Text as="p" size="2" color="blue">
+          Warmup {totalExerciseIndex + 1}/{totalWarmups}
+        </Text>
+        <>
+          <Text as="p" size="2">
+            Exercise {currentRoundExerciseIndex}/{exercisesWithoutWarmup.length}
           </Text>
-        ) : (
-          <>
-            <Text as="p" size="2">
-              Round {currentRound}/{totalRounds}
-            </Text>
-            <Text as="p" size="2">
-              Exercise {totalExerciseIndex + 1}/{totalNumberOfExercises}
-            </Text>
-          </>
-        )}
-        <Button variant="ghost" color="gray" size="1" onClick={onToggleMute}>
-          {isMuted ? 'Unmute' : 'Mute'}
-        </Button>
+          <Text as="p" size="2">
+            Round {currentRound}/{totalRounds}
+          </Text>
+        </>
       </Flex>
-      <Progress value={progressPercentage} className={styles.progressBar} />
+      <div className={styles.progressBarContainer}>
+        {exercises.map((exercise, index) => {
+          const isWarmup = exercise.type === WARMUP;
+          return (
+            <div
+              key={`${index}-${exercise.name}`}
+              className={styles.progressBar}
+              style={{
+                backgroundColor:
+                  index <= totalExerciseIndex - 1
+                    ? 'var(--grass-8)'
+                    : isWarmup
+                      ? 'var(--amber-6)'
+                      : 'var(--gray-5)',
+              }}
+            ></div>
+          );
+        })}
+      </div>
     </div>
   );
 }

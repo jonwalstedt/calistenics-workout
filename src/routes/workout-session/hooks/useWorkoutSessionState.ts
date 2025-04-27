@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { WorkoutState } from '../interfaces';
 import { EXERCISE, WorkoutDay } from '../../../types';
+import { useDerivedStates } from './useDerivedStates';
 
 interface UseWorkoutSessionStateProps {
   workout: WorkoutDay | null;
@@ -15,46 +16,27 @@ export const useWorkoutSessionState = ({
     currentRoundExerciseIndex: 0,
     totalExerciseIndex: 0,
   });
+
   const [workoutState, setWorkoutState] = useState(WorkoutState.WARMUP);
   const [currentRound, setCurrentRound] = useState(1);
 
-  const exercises = workout?.exercises ?? [];
-  const warmupExercises = exercises.filter(
-    (exercise) => exercise.type === 'warmup'
-  );
-  const exercisesWithoutWarmup = exercises.filter(
-    (exercise) => exercise.type !== 'warmup'
-  );
-  const maxRounds = workout?.repeats ?? 1;
-
-  const currentRoundExercises =
-    currentRound === 1 ? exercises : exercisesWithoutWarmup;
-  const currentExercise =
-    currentRoundExercises[progress.currentRoundExerciseIndex] ?? null;
-
-  let upcomingExercise =
-    currentRoundExercises[progress.currentRoundExerciseIndex + 1] ?? null;
-  if (
-    currentRound < maxRounds &&
-    progress.currentRoundExerciseIndex === currentRoundExercises.length - 1
-  ) {
-    upcomingExercise = exercisesWithoutWarmup[0] ?? null;
-  }
-
-  const baseRestDuration = workout?.restDuration ?? null;
-  const restDuration = currentExercise?.restDuration ?? baseRestDuration;
-  const shouldRest = restDuration != null && restDuration > 0;
-
-  const totalNumberOfExercises =
-    warmupExercises.length + exercisesWithoutWarmup.length * maxRounds;
-
-  const totalProgress = Math.round(
-    (progress.totalExerciseIndex / totalNumberOfExercises) * 100
-  );
-
-  const warmupProgress = Math.round(
-    (progress.totalExerciseIndex / warmupExercises.length) * 100
-  );
+  const {
+    currentExercise,
+    upcomingExercise,
+    currentRoundExercises,
+    warmupExercises,
+    exercisesWithoutWarmup,
+    maxRounds,
+    totalNumberOfExercises,
+    restDuration,
+    shouldRest,
+    totalProgress,
+    warmupProgress,
+  } = useDerivedStates({
+    workout,
+    progress,
+    currentRound,
+  });
 
   const goToNextRound = () => {
     setCurrentRound((prev) => prev + 1);
@@ -109,19 +91,20 @@ export const useWorkoutSessionState = ({
   };
 
   return {
-    workoutState,
-    setWorkoutState,
     currentExercise,
-    upcomingExercise,
-    currentRoundExercises,
-    goToNextExercise,
-    warmupExercises,
-    exercisesWithoutWarmup,
     currentRound,
-    totalNumberOfExercises,
+    currentRoundExercises,
+    exercisesWithoutWarmup,
+    goToNextExercise,
     maxRounds,
     progress,
+    restDuration,
+    setWorkoutState,
+    totalNumberOfExercises,
     totalProgress,
+    upcomingExercise,
+    warmupExercises,
     warmupProgress,
+    workoutState,
   };
 };
