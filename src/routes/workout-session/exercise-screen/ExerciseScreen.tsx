@@ -22,14 +22,13 @@ export function ExerciseScreen({
   setWorkoutState,
   goToNextExercise,
 }: ExerciseProps) {
-  const { timeLeft, exerciseState, isTimerPaused, handleStartExercise } =
-    useExerciseState({
-      restDuration,
-      workoutState,
-      currentExercise,
-      setWorkoutState,
-      goToNextExercise,
-    });
+  const { timeLeft, exerciseState, handleStartExercise } = useExerciseState({
+    restDuration,
+    workoutState,
+    currentExercise,
+    setWorkoutState,
+    goToNextExercise,
+  });
 
   const repetitions = currentExercise?.repetitions;
   let duration = currentExercise?.duration;
@@ -57,8 +56,8 @@ export function ExerciseScreen({
         <DonutTimer
           duration={duration}
           timeLeft={timeLeft}
-          isPaused={isTimerPaused}
-          size="large"
+          isPaused={exerciseState !== ExerciseState.STARTED}
+          size="medium"
           color="default"
         />
       )}

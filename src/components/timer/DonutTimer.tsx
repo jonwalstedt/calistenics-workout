@@ -43,8 +43,19 @@ export function DonutTimer({
     }
   };
 
+  const pulseRingClassName = isPaused
+    ? styles.pulseRingPaused
+    : styles.pulseRing;
+
   return (
     <div className={`${styles.container} ${getSizeClass()}`}>
+      <div
+        className={`${styles.pulseContainer} ${isPaused ? styles.pulseContainerPaused : ''}`}
+      >
+        <div className={pulseRingClassName}></div>
+        <div className={`${pulseRingClassName} ${styles.delayed}`}></div>
+      </div>
+
       <svg
         viewBox={viewBox}
         className={styles.donut}

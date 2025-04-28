@@ -5,6 +5,7 @@
   justify-content: center;
   margin: 0 auto;
   transition: all 0.3s ease;
+  --large: 160px;
 }
 
 .small {
@@ -18,8 +19,8 @@
 }
 
 .large {
-  width: 160px;
-  height: 160px;
+  width: var(--large);
+  height: var(--large);
 }
 
 .donut {
@@ -72,4 +73,79 @@
   color: var(--gray-11);
   margin-top: 2px;
   font-size: 10px;
-} 
+}
+
+.pulseContainer {
+  z-index: -1;
+  transition: opacity 3s ease-out 1.5s;
+  opacity: 1;
+}
+
+.pulseContainerPaused {
+  opacity: 0;
+}
+
+.pulseRing {
+  --offset: 40px;
+  position: absolute;
+  top: calc((var(--offset) / 2) * -1);
+  left: calc((var(--offset) / 2) * -1);
+  width: calc(100% + var(--offset));
+  height: calc(100% + var(--offset));
+  border-radius: 50%;
+  background: radial-gradient(circle,
+      rgba(255, 0, 150, 0) 40%,
+      /* Center fully transparent */
+      rgba(0, 200, 255, 0.4) 60%,
+      /* Blue ring */
+      rgba(0, 0, 0, 0) 70%
+      /* Outer transparent */
+    );
+  background: radial-gradient(circle,
+      rgba(255, 0, 150, 0) 40%,
+      /* Transparent center */
+      rgba(150, 220, 255, 0.3) 60%,
+      /* Light blue at start */
+      rgba(0, 0, 0, 0) 70%);
+  filter: blur(4px);
+  transform: scale(0.5);
+  animation: pulse 2s infinite ease-in-out;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.pulseRing.delayed {
+  animation-delay: 1.5s;
+}
+
+.pulseRingPaused {
+  composes: pulseRing;
+  animation-play-state: paused;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+    /* start invisible */
+    filter: blur(12px);
+  }
+
+  20% {
+    opacity: 1;
+    /* fade in nicely */
+  }
+
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+    /* fade out as it grows */
+    filter: blur(12px);
+  }
+
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}

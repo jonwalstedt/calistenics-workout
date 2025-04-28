@@ -15,7 +15,7 @@ export function WarmupScreen({
   currentExercise,
   goToNextExercise,
 }: WarmupProps) {
-  const { timeLeft, exerciseState, isTimerPaused, handleStartExercise } =
+  const { timeLeft, exerciseState, handleStartExercise } =
     useWarmupExerciseState({
       currentExercise,
       goToNextExercise,
@@ -41,8 +41,8 @@ export function WarmupScreen({
         <DonutTimer
           duration={duration}
           timeLeft={timeLeft}
-          isPaused={isTimerPaused}
-          size="large"
+          isPaused={exerciseState !== ExerciseState.STARTED}
+          size="medium"
           color="default"
         />
       )}
