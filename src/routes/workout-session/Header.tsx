@@ -1,6 +1,6 @@
 import { Flex, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
-import { Exercise, WARMUP } from '../../types';
+import { Exercise } from '../../types';
 import { ProgressBar } from '../../components/progress-bar';
 
 interface HeadersProps {
