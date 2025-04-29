@@ -7,25 +7,27 @@ interface ProgressBarProps {
 }
 
 export function ProgressBar({ exercises, currentProgress }: ProgressBarProps) {
+  const getBackgroundColor = (exercise: Exercise, index: number) => {
+    if (index === currentProgress) {
+      return 'var(--red-8)'; // Ongoing exercise
+    }
+    if (index < currentProgress) {
+      return 'var(--grass-8)'; // Completed
+    }
+    return exercise.type === WARMUP ? 'var(--amber-6)' : 'var(--gray-5)'; // Not started
+  };
+
   return (
     <div className={styles.progressBarContainer}>
-      {exercises.map((exercise, index) => {
-        const isWarmup = exercise.type === WARMUP;
-        return (
-          <div
-            key={`${index}-${exercise.name}`}
-            className={styles.progressBar}
-            style={{
-              backgroundColor:
-                index <= Math.max(currentProgress - 1, 0)
-                  ? 'var(--grass-8)'
-                  : isWarmup
-                    ? 'var(--amber-6)'
-                    : 'var(--gray-5)',
-            }}
-          ></div>
-        );
-      })}
+      {exercises.map((exercise, index) => (
+        <div
+          key={`${index}-${exercise.name}`}
+          className={styles.progressBar}
+          style={{
+            backgroundColor: getBackgroundColor(exercise, index),
+          }}
+        />
+      ))}
     </div>
   );
 }
