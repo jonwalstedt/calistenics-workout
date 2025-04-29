@@ -1,6 +1,7 @@
 import { Flex, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
 import { Exercise, WARMUP } from '../../types';
+import { ProgressBar } from '../../components/progress-bar';
 
 interface HeadersProps {
   warmupExercises: Exercise[];
@@ -46,25 +47,7 @@ export function Header({
           </Text>
         </>
       </Flex>
-      <div className={styles.progressBarContainer}>
-        {exercises.map((exercise, index) => {
-          const isWarmup = exercise.type === WARMUP;
-          return (
-            <div
-              key={`${index}-${exercise.name}`}
-              className={styles.progressBar}
-              style={{
-                backgroundColor:
-                  index <= totalExerciseIndex - 1
-                    ? 'var(--grass-8)'
-                    : isWarmup
-                      ? 'var(--amber-6)'
-                      : 'var(--gray-5)',
-              }}
-            ></div>
-          );
-        })}
-      </div>
+      <ProgressBar exercises={exercises} currentProgress={totalExerciseIndex} />
     </div>
   );
 }

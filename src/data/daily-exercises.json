@@ -82,7 +82,7 @@
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": null,
           "type": "warmup"
         },
         {
@@ -91,7 +91,7 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": 15,
           "type": "warmup"
         },
         {
@@ -158,7 +158,7 @@
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": null,
           "type": "warmup"
         },
         {
@@ -167,7 +167,7 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": 15,
           "type": "warmup"
         },
         {
@@ -226,7 +226,7 @@
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": null,
           "type": "warmup"
         },
         {
@@ -235,7 +235,7 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": 15,
           "type": "warmup"
         },
         {
@@ -302,7 +302,7 @@
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": null,
           "type": "warmup"
         },
         {
@@ -311,7 +311,7 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": 15,
           "type": "warmup"
         },
         {
@@ -379,7 +379,7 @@
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": null,
           "type": "warmup"
         },
         {
@@ -388,7 +388,7 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": 15,
           "type": "warmup"
         },
         {
@@ -447,7 +447,7 @@
           "duration": 30,
           "image": "../assets/jumping-jacks.png",
           "repetitions": null,
-          "restDuration": 0,
+          "restDuration": null,
           "type": "warmup"
         },
         {
@@ -456,7 +456,7 @@
           "duration": 30,
           "image": "../assets/high-knees.png",
           "repetitions": null,
-          "restDuration": 5,
+          "restDuration": 15,
           "type": "warmup"
         },
         {

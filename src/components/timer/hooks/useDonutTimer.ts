@@ -23,7 +23,7 @@ export const useDonutTimer = (
   const radius = getRadius(size);
   const diameter = radius * 2;
   const viewBox = `0 0 ${diameter + 10} ${diameter + 10}`;
-  const strokeWidth = size === 'small' ? 4 : 6;
+  const strokeWidth = size === 'small' ? 2 : 4;
   const center = diameter / 2 + 5; // Adding 5 for padding
 
   // Calculate circumference (2πr)

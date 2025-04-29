@@ -10,7 +10,7 @@ describe('useDonutTimer', () => {
       const { result } = renderHook(() => useDonutTimer(60, 30, 'small'));
 
       expect(result.current.radius).toBe(35);
-      expect(result.current.strokeWidth).toBe(4);
+      expect(result.current.strokeWidth).toBe(2);
       expect(result.current.viewBox).toBe('0 0 80 80');
       expect(result.current.center).toBe(40);
     });
@@ -19,7 +19,7 @@ describe('useDonutTimer', () => {
       const { result } = renderHook(() => useDonutTimer(60, 30, 'medium'));
 
       expect(result.current.radius).toBe(45);
-      expect(result.current.strokeWidth).toBe(6);
+      expect(result.current.strokeWidth).toBe(4);
       expect(result.current.viewBox).toBe('0 0 100 100');
       expect(result.current.center).toBe(50);
     });
@@ -28,7 +28,7 @@ describe('useDonutTimer', () => {
       const { result } = renderHook(() => useDonutTimer(60, 30, 'large'));
 
       expect(result.current.radius).toBe(70);
-      expect(result.current.strokeWidth).toBe(6);
+      expect(result.current.strokeWidth).toBe(4);
       expect(result.current.viewBox).toBe('0 0 150 150');
       expect(result.current.center).toBe(75);
     });
