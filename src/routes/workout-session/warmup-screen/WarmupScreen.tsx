@@ -42,7 +42,7 @@ export function WarmupScreen({
           duration={duration}
           timeLeft={timeLeft}
           isPaused={exerciseState !== ExerciseState.STARTED}
-          size="medium"
+          size="large"
           color="default"
         />
       )}
