@@ -36,11 +36,12 @@ export function Header({
       <h1>{workoutName}</h1>
       <Flex justify="between" align="center">
         <Text as="p" size="2" color="blue">
-          Warmup {totalExerciseIndex + 1}/{totalWarmups}
+          Warmup {Math.min(totalExerciseIndex + 1, totalWarmups)}/{totalWarmups}
         </Text>
         <>
           <Text as="p" size="2">
-            Exercise {currentRoundExerciseIndex}/{exercisesWithoutWarmup.length}
+            Exercise {currentRoundExerciseIndex + 1}/
+            {exercisesWithoutWarmup.length}
           </Text>
           <Text as="p" size="2">
             Round {currentRound}/{totalRounds}
