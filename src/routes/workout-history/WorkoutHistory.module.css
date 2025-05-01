@@ -5,15 +5,6 @@
   padding: 1rem;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
 .tabsContainer {
   width: 100%;
 }
@@ -32,12 +23,12 @@
   color: var(--primary-600);
 }
 
-.tabsTrigger[data-state="active"] {
+.tabsTrigger[data-state='active'] {
   color: var(--primary-700);
   font-weight: var(--font-weight-medium);
 }
 
-.tabsTrigger[data-state="active"]::after {
+.tabsTrigger[data-state='active']::after {
   content: '';
   position: absolute;
   bottom: -1px;
@@ -56,6 +47,7 @@
     opacity: 0;
     transform: translateY(5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -65,113 +57,3 @@
 .calendarSection {
   margin-bottom: 2rem;
 }
-
-.statsSection {
-  margin-bottom: 2rem;
-}
-
-.statCard {
-  padding: 1rem;
-  min-width: 120px;
-  flex: 1;
-  background-color: var(--workout-card-bg);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.statCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.noWorkoutsMessage {
-  margin-top: 2rem;
-}
-
-.messageCard {
-  padding: 2rem;
-  text-align: center;
-  background-color: var(--workout-card-bg);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
-}
-
-.workoutHistory {
-  margin-top: 2rem;
-}
-
-.dateGroup {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.dateGroup:last-child {
-  border-bottom: none;
-}
-
-.dateHeading {
-  margin-bottom: 1rem;
-  color: var(--primary-700);
-}
-
-.workoutList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.workoutSubList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.workoutItem {
-  padding: 0.8rem;
-  margin-bottom: 0.5rem;
-  border-radius: var(--border-radius);
-  background-color: var(--workout-card-bg);
-  border: 1px solid var(--border);
-  transition: background-color 0.2s ease;
-}
-
-.workoutItem:hover {
-  background-color: var(--workout-item-hover);
-}
-
-.workoutItem:last-child {
-  margin-bottom: 0;
-}
-
-.selectedDate {
-  margin-top: 2rem;
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  background-color: var(--muted);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Mobile adjustments */
-@media (max-width: 480px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .header > div {
-    align-self: flex-end;
-  }
-  
-  .statCard {
-    min-width: 100px;
-    padding: 0.75rem;
-  }
-} 

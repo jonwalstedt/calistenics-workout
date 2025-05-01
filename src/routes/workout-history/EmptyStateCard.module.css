@@ -1,0 +1,11 @@
+.noWorkoutsMessage {
+  margin-top: 2rem;
+}
+
+.messageCard {
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--workout-card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}

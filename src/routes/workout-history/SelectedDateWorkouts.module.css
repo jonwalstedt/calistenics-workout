@@ -1,0 +1,35 @@
+.selectedDate {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: var(--muted);
+  box-shadow: var(--shadow-sm);
+}
+
+.dateHeading {
+  margin-bottom: 1rem;
+  color: var(--primary-700);
+}
+
+.workoutList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.workoutItem {
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--workout-card-bg);
+  border: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.workoutItem:hover {
+  background-color: var(--workout-item-hover);
+}
+
+.workoutItem:last-child {
+  margin-bottom: 0;
+}

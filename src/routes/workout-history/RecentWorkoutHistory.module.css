@@ -1,0 +1,47 @@
+.workoutHistory {
+  margin-top: 2rem;
+}
+
+.workoutList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dateGroup {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dateGroup:last-child {
+  border-bottom: none;
+}
+
+.dateHeading {
+  margin-bottom: 1rem;
+  color: var(--primary-700);
+}
+
+.workoutSubList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.workoutItem {
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: var(--border-radius);
+  background-color: var(--workout-card-bg);
+  border: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.workoutItem:hover {
+  background-color: var(--workout-item-hover);
+}
+
+.workoutItem:last-child {
+  margin-bottom: 0;
+}

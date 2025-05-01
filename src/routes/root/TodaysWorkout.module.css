@@ -1,0 +1,40 @@
+.todayWorkout {
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  margin-bottom: 0.75rem;
+}
+
+.workoutCard {
+  padding: 1rem;
+  background-color: var(--workout-card-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.workoutCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.workoutStats {
+  background-color: var(--muted);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin: 0.5rem 0;
+}
+
+.exercisePreview {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.previewLabel {
+  margin-bottom: 0.5rem;
+  color: var(--muted-foreground);
+}
