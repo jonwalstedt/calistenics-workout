@@ -7,7 +7,7 @@ interface WeekCalendarProps {
   title?: string;
 }
 
-export function WeekCalendar({ title = 'Last 7 Days' }: WeekCalendarProps) {
+export function WeekCalendar({ title }: WeekCalendarProps) {
   const { user } = useUser();
   const days = getDays();
 
@@ -19,7 +19,7 @@ export function WeekCalendar({ title = 'Last 7 Days' }: WeekCalendarProps) {
         </Text>
       )}
 
-      <Flex justify="between" className={styles.daysContainer}>
+      <div className={styles.daysContainer}>
         {days.map((day, index) => {
           const completed = hasWorkoutOnDate(day, user);
           const today = isToday(day);
@@ -45,7 +45,7 @@ export function WeekCalendar({ title = 'Last 7 Days' }: WeekCalendarProps) {
             </Box>
           );
         })}
-      </Flex>
+      </div>
     </Box>
   );
 }

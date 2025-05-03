@@ -5,7 +5,7 @@
   background-color: var(--workout-card-bg);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -18,10 +18,6 @@
 .statCard:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-}
-
-.statsSection {
-  margin-bottom: 2rem;
 }
 
 /* Mobile adjustments */

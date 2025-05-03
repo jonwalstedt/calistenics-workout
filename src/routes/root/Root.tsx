@@ -64,7 +64,7 @@ export function Root() {
         <div className={styles.dashboard}>
           <Header user={user} onLogout={handleLogout} />
 
-          <WeekCalendar title="Activity" />
+          <WeekCalendar />
 
           <WorkoutStats
             startDate={startDate}

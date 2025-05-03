@@ -47,7 +47,7 @@ export function WarmupScreen({
         />
       )}
 
-      <Button onClick={handleStartExercise}>
+      <Button size="4" onClick={handleStartExercise}>
         {exerciseState === ExerciseState.IDLE ||
         exerciseState === ExerciseState.PAUSED
           ? 'Start warmup'

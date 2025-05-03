@@ -62,7 +62,9 @@ export function ExerciseScreen({
         />
       )}
 
-      <Button onClick={handleStartExercise}>{buttonText}</Button>
+      <Button size="4" onClick={handleStartExercise}>
+        {buttonText}
+      </Button>
     </div>
   );
 }
