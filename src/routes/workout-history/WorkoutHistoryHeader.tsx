@@ -6,12 +6,12 @@ import styles from './WorkoutHistoryHeader.module.css';
 export function WorkoutHistoryHeader() {
   return (
     <div className={styles.header}>
-      <Heading as="h1" size="6">
+      <Heading as="h1" size="3">
         Workout History
       </Heading>
       <Flex gap="2" align="center">
         <ThemeToggle />
-        <Button asChild variant="soft" size="2">
+        <Button asChild variant="soft" size="1">
           <Link to="/">Back to Dashboard</Link>
         </Button>
       </Flex>
