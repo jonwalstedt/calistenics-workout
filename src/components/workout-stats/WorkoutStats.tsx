@@ -26,7 +26,7 @@ export function WorkoutStats({
   currentStreak,
   longestStreak,
   startDate,
-  showStartDate,
+  showStartDate = false,
 }: WorkoutStatsProps) {
   return (
     <div className={styles.statsSection}>

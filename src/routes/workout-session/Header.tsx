@@ -1,4 +1,4 @@
-import { Flex, Text } from '@radix-ui/themes';
+import { Flex, Heading, Text } from '@radix-ui/themes';
 import styles from './Header.module.css';
 import { Exercise } from '../../types';
 import { ProgressBar } from '../../components/progress-bar';
@@ -33,7 +33,7 @@ export function Header({
   const exercises = [...warmupExercises, ...exercisesOverSets];
   return (
     <div className={styles.progressHeader}>
-      <h1>{workoutName}</h1>
+      <Heading size="6">{workoutName}</Heading>
       <Flex justify="between" align="center">
         <Text as="p" size="2" color="blue">
           Warmup {Math.min(totalExerciseIndex + 1, totalWarmups)}/{totalWarmups}

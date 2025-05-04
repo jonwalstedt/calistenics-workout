@@ -15,7 +15,7 @@ import { UserProvider, ThemeProvider } from './context';
 // @ts-expect-error - Virtual module from vite-plugin-pwa
 import { registerSW } from 'virtual:pwa-register';
 import { OfflineNotification } from './components/offline';
-import { GlobalNav } from './components/navigation';
+import { GlobalNavigation } from './components/global-navigation';
 import { initCookieConsent } from './components/cookie-consent';
 
 // Initialize cookie consent banner
@@ -44,7 +44,7 @@ function AppLayout() {
   return (
     <>
       <Outlet />
-      <GlobalNav />
+      <GlobalNavigation />
     </>
   );
 }

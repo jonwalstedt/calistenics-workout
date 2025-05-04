@@ -71,7 +71,6 @@ export function Root() {
             totalWorkouts={totalWorkouts}
             currentStreak={currentStreak}
             longestStreak={longestStreak}
-            showStartDate={workoutDates.length > 0}
           />
 
           {/* Today's Workout */}

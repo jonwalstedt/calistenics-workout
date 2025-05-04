@@ -40,10 +40,7 @@ export function WorkoutSchedule() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Heading as="h1" size="3">
-          Workout Schedule
-        </Heading>
-        <Button variant="soft" size="1" asChild>
+        <Button variant="ghost" size="1" asChild>
           <Link to="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +57,11 @@ export function WorkoutSchedule() {
             >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Back
           </Link>
         </Button>
+        <Heading as="h1" size="3">
+          Workout Schedule
+        </Heading>
       </div>
 
       <div className={styles.scheduleSelector}>
