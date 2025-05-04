@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@radix-ui/themes';
+import { Box, Text } from '@radix-ui/themes';
 import { useUser } from '../../context';
 import styles from './WeekCalendar.module.css';
 import { getDayName, getDays, hasWorkoutOnDate, isToday } from './utils';
