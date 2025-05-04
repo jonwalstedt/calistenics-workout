@@ -12,7 +12,7 @@ interface HeadersProps {
 export function Header({ user, onLogout }: HeadersProps) {
   return (
     <div className={styles.header}>
-      <Heading as="h1" size="6">
+      <Heading as="h1" size="3">
         Welcome, {user?.name}!
       </Heading>
       <Flex gap="2" align="center">

@@ -56,10 +56,6 @@ img {
 
 /* Media query for tablets and up */
 @media (min-width: 768px) {
-  #root {
-    padding: 2rem;
-  }
-
   .hide-on-mobile {
     display: initial;
   }
