@@ -1,5 +1,4 @@
-import { Button, Flex, Heading } from '@radix-ui/themes';
-import { ThemeToggle } from '../../components/theme';
+import { Button, Heading } from '@radix-ui/themes';
 import { Link } from 'react-router-dom';
 import styles from './WorkoutHistoryHeader.module.css';
 

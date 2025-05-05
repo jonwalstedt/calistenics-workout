@@ -15,13 +15,8 @@ export function Root() {
   const { login, user, logout, isLoggedIn } = useUser();
   const { getTodayWorkout, isLoaded } = useWorkoutSchedule();
   const [loginError, setLoginError] = useState<string | null>(null);
-  const {
-    startDate,
-    totalWorkouts,
-    currentStreak,
-    longestStreak,
-    workoutDates,
-  } = useWorkoutHistory({ user });
+  const { startDate, totalWorkouts, currentStreak, longestStreak } =
+    useWorkoutHistory({ user });
 
   // Get today's workout
   const todayWorkout = getTodayWorkout();

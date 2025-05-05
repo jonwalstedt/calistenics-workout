@@ -6,7 +6,7 @@ interface WorkoutStatsProps {
   totalWorkouts: number;
   currentStreak: number;
   longestStreak: number;
-  showStartDate: boolean;
+  showStartDate?: boolean;
 }
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
