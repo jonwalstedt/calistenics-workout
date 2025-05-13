@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import { Root } from './Root';
+import { Home } from './Home';
 import {
   reactRouterParameters,
   withRouter,
@@ -10,7 +10,7 @@ import { ThemeProvider, UserContext } from '../../context';
 import { mockUser } from '../../test-utils';
 
 const meta = {
-  component: Root,
+  component: Home,
   parameters: {
     reactRouter: reactRouterParameters({
       routing: { path: '/' },
@@ -35,7 +35,7 @@ const meta = {
       </ThemeProvider>
     ),
   ],
-} satisfies Meta<typeof Root>;
+} satisfies Meta<typeof Home>;
 
 export default meta;
 
