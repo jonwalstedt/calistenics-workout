@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import './theme.css';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import { Root } from './routes/root';
+import { Home } from './routes/home';
 import { ErrorPage } from './error-page';
 import { WorkoutHistory } from './routes/workout-history';
 import { WorkoutSessionDataLoader } from './routes/workout-session';
@@ -57,7 +57,7 @@ const router = createBrowserRouter(
       children: [
         {
           path: '/',
-          element: <Root />,
+          element: <Home />,
         },
         {
           path: '/history',

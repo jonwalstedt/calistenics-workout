@@ -5,13 +5,13 @@ import { useUser } from '../../context';
 import { useWorkoutSchedule } from '../../hooks';
 import { ThemeToggle } from '../../components/theme';
 import { WeekCalendar } from '../../components/calendar';
-import styles from './Root.module.css';
+import styles from './Home.module.css';
 import { WorkoutStats } from '../../components/workout-stats';
 import { useWorkoutHistory } from '../../hooks/useWorkoutHistory';
 import { Header } from './Header';
-import { TodaysWorkout } from './TodaysWorkout';
+import { WorkoutScheduleCard } from '../../components/workout-schedule-card';
 
-export function Root() {
+export function Home() {
   const { login, user, logout, isLoggedIn } = useUser();
   const { getTodayWorkout, isLoaded } = useWorkoutSchedule();
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -70,7 +70,15 @@ export function Root() {
 
           {/* Today's Workout */}
           {isLoaded && todayWorkout ? (
-            <TodaysWorkout todayWorkout={todayWorkout} />
+            <>
+              <Heading as="h2" size="4" className={styles.sectionTitle}>
+                Today's Workout
+              </Heading>
+              <WorkoutScheduleCard
+                workout={todayWorkout}
+                key={todayWorkout.day}
+              />
+            </>
           ) : (
             <Text as="p">Loading today's workout...</Text>
           )}
