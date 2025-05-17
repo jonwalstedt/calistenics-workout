@@ -1,6 +1,6 @@
 .navContainer {
 	position: fixed;
-	bottom: calc(env(safe-area-inset-bottom) + 16px);
+	bottom: calc(env(safe-area-inset-bottom) + 32px);
 	left: 16px;
 	right: 16px;
 	background-color: var(--color-background);
