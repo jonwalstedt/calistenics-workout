@@ -1,77 +1,86 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  background-color: #fff;
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	color-scheme: light dark;
+	background-color: #fff;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Set box-sizing globally to better handle padding/border in width calculations */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
-  /* Prevent horizontal scrolling */
+	margin: 0;
+	display: flex;
+	min-width: 320px;
+	min-height: 100vh;
+	width: 100%;
+	overflow-x: hidden;
+	/* Prevent horizontal scrolling */
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	padding-top: env(safe-area-inset-top);
+	padding-bottom: env(safe-area-inset-bottom);
+	box-sizing: border-box;
 }
 
 #root {
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  overflow-x: hidden;
-  /* Prevent horizontal scrolling */
+	max-width: 1280px;
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	overflow-x: hidden;
+	/* Prevent horizontal scrolling */
 }
 
 .content {
-  width: 100%;
-  padding-bottom: 80px;
-  /* Account for the fixed navigation */
+	width: 100%;
+	padding-bottom: 80px;
+	/* Account for the fixed navigation */
 }
 
 /* Make all images responsive by default */
 img {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 /* Base responsive utilities */
 .hide-on-mobile {
-  display: none;
+	display: none;
 }
 
 /* Media query for tablets and up */
 @media (min-width: 768px) {
-  .hide-on-mobile {
-    display: initial;
-  }
+	.hide-on-mobile {
+		display: initial;
+	}
 
-  .hide-on-desktop {
-    display: none;
-  }
+	.hide-on-desktop {
+		display: none;
+	}
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+	:root {
+		color: #213547;
+		background-color: #ffffff;
+	}
 
-  a:hover {
-    color: #747bff;
-  }
+	a:hover {
+		color: #747bff;
+	}
 }
