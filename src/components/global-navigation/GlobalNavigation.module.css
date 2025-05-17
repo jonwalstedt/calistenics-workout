@@ -1,18 +1,17 @@
 .navContainer {
 	position: fixed;
-	bottom: calc(env(safe-area-inset-bottom) + var(--space-x6));
-	left: var(--space-x6);
-	right: var(--space-x6);
+	bottom: calc(env(safe-area-inset-bottom) + 16px);
+	left: 16px;
+	right: 16px;
 	background-color: var(--color-background);
 	border-radius: 24px;
-	padding: var(--space) 32px;
+	padding: 16px 24px;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 	z-index: 100;
 	overflow-x: hidden;
 }
 
 .navContent {
-	max-width: calc(var(--content-width) - 40px);
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
@@ -49,7 +48,7 @@
 
 .mainButton {
 	border-radius: 50px;
-	padding: 10px 16px;
+	padding: 12px 20px;
 	font-size: 14px;
 	font-weight: bold;
 	display: flex;
@@ -62,6 +61,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 100%;
+	min-width: 72px;
 }
 
 .mainButton:hover:not(:disabled) {
@@ -72,46 +72,4 @@
 .icon {
 	margin-right: 6px;
 	flex-shrink: 0;
-}
-
-/* Mobile optimization */
-@media (max-width: 480px) {
-	.navButton {
-		padding: 6px 4px;
-		max: 50px;
-	}
-
-	.mainButton {
-		padding: 8px 14px;
-		font-size: 12px;
-	}
-
-	.icon {
-		margin-right: 4px;
-	}
-}
-
-/* Medium screens and up */
-@media (min-width: 768px) {
-	.navContainer {
-		padding: var(--space) var(--space-x4);
-	}
-
-	.navButton {
-		padding: var(--space) var(--space-x4);
-	}
-
-	.navButton span {
-		font-size: 12px;
-		margin-top: 4px;
-	}
-
-	.mainButton {
-		padding: var(--space-x3) var(--space-x6);
-		font-size: 16px;
-	}
-
-	.icon {
-		margin-right: var(--space-x2);
-	}
 }
