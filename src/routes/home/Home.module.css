@@ -2,7 +2,7 @@
 	width: 100%;
 	max-width: var(--content-width);
 	margin: 0 auto;
-	padding: 1rem 0 calc(var(--navigation-height) + 2rem);
+	padding: 1rem 0 calc(var(--navigation-height) + 3rem);
 }
 
 .login {

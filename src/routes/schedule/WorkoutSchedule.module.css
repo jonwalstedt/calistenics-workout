@@ -1,120 +1,101 @@
 .container {
-  width: 100%;
-  max-width: var(--content-width);
-  margin: 0 auto;
-  padding: 1rem;
+	width: 100%;
+	max-width: var(--content-width);
+	margin: 0 auto;
+	padding: 1rem 1rem calc(var(--navigation-height) + 3rem);
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--border);
+	margin-bottom: 1rem;
 }
 
 .scheduleSelector {
-  margin-bottom: 1.5rem;
-  background-color: var(--muted);
-  padding: 1rem;
-  border-radius: var(--border-radius);
+	margin-bottom: 1.5rem;
+	background-color: var(--muted);
+	padding: 1rem;
+	border-radius: var(--border-radius);
 }
 
 .scheduleList {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
 }
 
 .dayCard {
-  padding: 1.5rem;
-  background-color: var(--workout-card-bg);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+	padding: 1.5rem;
+	background-color: var(--workout-card-bg);
+	border: 1px solid var(--border);
+	box-shadow: var(--shadow-md);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .dayCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-lg);
 }
 
 .description {
-  margin: 0.75rem 0;
-  color: var(--muted-foreground);
+	margin: 0.75rem 0;
+	color: var(--muted-foreground);
 }
 
 .workoutMeta {
-  background-color: var(--muted);
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  margin: 0.5rem 0;
+	background-color: var(--muted);
+	padding: 1rem;
+	border-radius: var(--border-radius);
+	margin: 0.5rem 0;
 }
 
 .exercisesSection {
-  margin-top: 1rem;
+	margin-top: 1rem;
 }
 
 .exercisesList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .exerciseRow {
-  border: 1px solid var(--border);
-  border-radius: var(--border-radius);
-  overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--border-radius);
+	overflow: hidden;
 }
 
 .exerciseHeader {
-  padding: 0.75rem 1rem;
-  background-color: var(--muted);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+	padding: 0.75rem 1rem;
+	background-color: var(--muted);
+	cursor: pointer;
+	transition: background-color 0.2s ease;
 }
 
 .exerciseHeader:hover {
-  background-color: var(--accent-3);
+	background-color: var(--accent-3);
 }
 
 .toggleButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  margin: -4px;
-  min-width: 24px;
-  min-height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	margin: -4px;
+	min-width: 24px;
+	min-height: 24px;
 }
 
 .exerciseDetails {
-  padding: 1rem;
-  background-color: var(--workout-card-bg);
-  border-top: 1px solid var(--border);
+	padding: 1rem;
+	background-color: var(--workout-card-bg);
+	border-top: 1px solid var(--border);
 }
 
 .actionButtons {
-  margin-top: 1.5rem;
-  padding-top: 0.5rem;
+	margin-top: 1.5rem;
+	padding-top: 0.5rem;
 }
-
-/* Mobile-first adjustments */
-@media (max-width: 480px) {
-  .container {
-    padding: 0.5rem;
-  }
-  
-  .dayCard {
-    padding: 1rem;
-  }
-
-  .exerciseHeader {
-    padding: 0.5rem 0.75rem;
-  }
-
-  .exerciseDetails {
-    padding: 0.75rem;
-  }
-} 
