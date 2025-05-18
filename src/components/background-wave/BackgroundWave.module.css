@@ -7,6 +7,7 @@
 	height: 100%;
 	background-image: url("./assets/wave.svg");
 	background-size: cover;
-	background-position: center center;
+	background-position: -2000px 310px;
+	background-repeat: no-repeat;
 	z-index: -1; /* Ensure it stays behind other content */
 }
