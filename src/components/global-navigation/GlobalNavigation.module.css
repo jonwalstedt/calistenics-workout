@@ -9,6 +9,8 @@
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 	z-index: 100;
 	overflow-x: hidden;
+	height: 84px;
+	display: flex;
 }
 
 .navContent {
@@ -42,6 +44,11 @@
 	color: var(--indigo-9);
 }
 
+.homeIcon {
+	display: block;
+	color: var(--indigo-9);
+}
+
 .playButtonIcon {
 	display: block;
 }
@@ -69,7 +76,7 @@
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.icon {
+.doneIcon {
 	margin-right: 6px;
 	flex-shrink: 0;
 }
